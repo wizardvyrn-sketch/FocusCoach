@@ -12,7 +12,7 @@ FocusCoach records, **locally only**, things you do while a task is running: win
 
 - Data lives in `%LOCALAPPDATA%\FocusCoach` (or the `data` folder next to the portable launcher).
 - It is **not encrypted**. Anyone with access to your Windows account or that folder can read it. Do not share the data folder or the log files when asking for help; redact them first.
-- The app's windows are excluded from screen capture and screen sharing by default.
+- The main windows, dialogs, compact view and guide cards are excluded from screen capture, screen sharing and recordings by default. Exceptions: the short boot screen (no task data) and the tray icon menu and tooltip (status only). Older Windows 10 builds (before 2004) show these windows as black rectangles instead.
 
 ## Supported versions
 

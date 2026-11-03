@@ -97,7 +97,7 @@ FocusCoach/
 
 ## 7.5a 多言語化(0.13A)
 
-- 辞書: `src/FocusCoach.Core/Strings/ja.json`・`en.json`(キー → `string.Format` 形式の文)。Core の埋め込みリソース。`.resx` は使わない(自己完結の発行・クラウド(Linux)での型チェックと相性が悪く、貢献者が JSON を足すだけで言語を増やせる方が公開向き)。
+- 辞書: `src/FocusCoach.Core/Strings/ja.json`・`en.json`(キー → `string.Format` 形式の文)。Core の埋め込みリソース。`.resx` は使わない(自己完結の発行・クラウド(Linux)での型チェックと相性が悪く、辞書の追加が JSON のファイル追加で済む方が公開向き(言語を足す手順は CONTRIBUTING.md。切り替えの操作は日本語 ⇄ 英語の2つ固定なので、3言語目には選ぶ方法も要る))。
 - `Core.Loc`: `T(key, args)`、`Language`、`SetLanguage`、`Resolve(setting, os)`、`Changed`、`Duration`・`Date`・`DateTime`(言語に合わせた書き方)。キー欠けは 言語 → en → `⟦キー⟧` で補い、実行は止めない。テスト用に `Loc.Use(lang)`(非同期の流れの中だけ言語を替える。他のテストに影響しない)。
 - App: `{loc:T キー}`(`TExtension`)は `LocSource`(`Item[]` の変更通知)への束縛。言語が替わると `MainWindow.ApplyLanguage()` が、コードで設定している文言を作り直す。書体は `UiFont` を `DynamicResource` にして差し替える。
 - テスト: 辞書の ja / en のキー・プレースホルダの一致、英語に日本語が混ざらないこと、**ソースに日本語の文字列リテラルが残っていないこと**の走査(許可は内部名・正規表現・既定文の3か所)。

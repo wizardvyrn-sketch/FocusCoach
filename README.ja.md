@@ -83,7 +83,8 @@ dotnet build FocusCoach.sln
 dotnet run --project src/FocusCoach.App
 ```
 
-最初は「練習モード」(ウィンドウを動かさない)になっている。テストやシナリオの実行方法は [docs/plan.md](docs/plan.md) の「動かし方」を参照。
+最初は「練習モード」(ウィンドウを動かさない)になっている。テストは `dotnet test FocusCoach.cloud.slnf`(画面のプロジェクトを除いたもの。どの OS でも動く)。
+画面なしで作業を再現できるコマンドラインツール `fc` の使い方は、英語の README の「Command-line tool (`fc`)」にある(コマンドの一覧、シナリオの書き方と動く例)。詳細は [docs/spec/08-debug-logging.md](docs/spec/08-debug-logging.md)。
 
 ### 他の端末で使う(持ち運び版)
 
@@ -92,6 +93,66 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\publish-portable.ps1
 ```
 
 .NET の実行環境ごと同梱するので、配布先の Windows 10/11 (64bit) には何もインストールしなくてよい(約 160MB)。使い方は [deploy/README.txt](deploy/README.txt)。
+
+## 設定(settings.json)
+
+設定は、[記録の場所](#記録の場所)にある `settings.json` に保存されます。**編集するときは、先に FocusCoach を閉じてください**(終了時にアプリがファイルを書き直します)。項目の名前は大文字・小文字を区別します。ファイルが無い・壊れているときは、既定値で動きます。例: 割り込みのしおりを `F11` にし、ガイドを 60 秒にし、表示を英語に固定する。
+
+```json
+{
+  "HotkeyInterrupt": 122,
+  "ReentryGuideSec": 60,
+  "Language": "en"
+}
+```
+
+| 項目 | 既定 | 内容 |
+|---|---|---|
+| `Language` | `"auto"` | `"auto"`(日本語の Windows なら日本語、それ以外は英語)/ `"ja"` / `"en"` |
+| `HotkeyInterrupt` | `120`(F9) | 割り込みのしおり / 割り込みを閉じる。仮想キーコード(下記) |
+| `HotkeyMemo` | `121`(F10) | 作業中はメモ、割り込み中は再開メモ |
+| `HotkeyCompact` | `119`(F8) | コンパクト表示の切り替え |
+| `HotkeyLanguage` | `119`(F8) | 表示言語を切り替えるキー。`0` で無効 |
+| `HotkeyLanguageModifiers` | `3`(Ctrl+Alt) | 言語のホットキーの修飾キー。足し合わせる: Alt = 1、Ctrl = 2、Shift = 4 |
+| `ReentryGuideSec` | `40` | 再入場ガイドを出す秒数。`0` で出さない |
+| `ReentryGuideMinInterruptSec` | `60` | これより短い割り込みでは、ガイドを出さない(秒) |
+| `ReentryGuideMessage` | 未設定 | ガイドの一言。`{sec}` は秒数。`""` で出さない。未設定なら言語ごとの既定文 |
+| `CompactOpacity` | `0.55` | コンパクト表示の不透明度(0.1〜1) |
+| `CompactHoverOpacity` | `0.2` | コンパクト表示にマウスを重ねたときの不透明度 |
+| `CompactClickThrough` | `true` | コンパクト表示の上のクリックを下のアプリに通す(Ctrl を押している間だけ触れる) |
+| `ExitCardTidyDefault` | `true` | 出口カードの「割り込みで開いたウィンドウを片付ける」の初期値 |
+| `DefaultTaskApps` | `"WINWORD.EXE,EXCEL.EXE"` | 「作業で使うアプリ」の初期値 |
+| `WorkspaceDryRun` | `true` | 練習モード(ウィンドウを動かさない)。開始準備のチェックと同じもの |
+
+このファイルには `PanelLeft`・`PanelTop`・`TrayHintShown`・`ReentryGuideHintShown`・`LastInterruptCategory` も、アプリが記録します。これらは触らないでください。
+
+ホットキーの値は、Windows の**仮想キーコードの 10 進数**です。`F1`〜`F12` は `112`〜`123`(`F9` は `120`)、`F13`〜`F24` は `124`〜`135`、英字 `A`〜`Z` は `65`〜`90`、数字 `0`〜`9` は `48`〜`57` です。ほかのキーは、Microsoft の「Virtual-Key Codes」の一覧を見てください。3 つの主なホットキーは、**修飾キーなしでグローバルに登録**されます。FocusCoach の起動中は、そのキーがほかのアプリで効かなくなります(例: Excel の `F9` = 再計算)。ほかのアプリが使わないキーを選んでください。登録できないときは画面でお知らせし、ボタンでも同じ操作ができます。
+
+開発者向けの環境変数が 2 つあります。`FOCUSCOACH_DATA`(別の記録の保存先を使う)と、`FOCUSCOACH_ALLOW_CAPTURE=1`(画面の撮影からの除外を外して、スクリーンショットを撮れるようにする)。
+
+## 記録の場所
+
+| 起動の方法 | 記録のフォルダ |
+|---|---|
+| `FocusCoach.cmd`(または `app\FocusCoach.exe`) | `%LOCALAPPDATA%\FocusCoach`(Windows のユーザーごと、PC ごと) |
+| `FocusCoach-portable.cmd` | 起動用ファイルの隣の `data` フォルダ |
+| どちらでも、`FOCUSCOACH_DATA` を設定したとき | そのフォルダ |
+
+| 記録のフォルダの中 | 内容 |
+|---|---|
+| `focuscoach.db` | SQLite のデータベース: タスク、実行、手順、あとでやること、割り込みの記録 |
+| `sessions\*.jsonl` | 実行ごとのイベントの記録。途中で終わった・中断した実行は、ここから再開する |
+| `sessions\discarded\` | 「破棄」を選んだ実行(削除ではなく、ここへ移す) |
+| `logs\app-YYYYMMDD.log`、`logs\crash-*.txt` | アプリのログ(14 日間保存)と、異常終了の記録(30 日間保存) |
+| `settings.json` | 設定(上記) |
+
+暗号化はしていません。ウィンドウのタイトルやファイルの場所が記録されることがあります。このフォルダやログは、そのままの形で他人に渡さないでください。
+
+## アンインストール
+
+1. FocusCoach を終了します(タスクトレイのアイコン →「アプリを閉じる」、または ✕ ボタン)。
+2. 展開したフォルダを削除します。インストーラーは使わないので、**レジストリ・スタートアップ・ショートカットは作られていません**。
+3. 記録は、プログラムのフォルダではなく、記録のフォルダ(上記)にあります。記録も消すときは、`%LOCALAPPDATA%\FocusCoach`(通常の起動)または `data` フォルダ(持ち運び用の起動)を削除します。あとで使うかもしれないときは、先に別の場所へコピーしてください。
 
 ## 仕様書
 
@@ -119,6 +180,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\publish-portable.ps1
 - `CLAUDE.md` — Claude Code 向けのプロジェクト説明と作業ルール
 - `deploy/` — 持ち運び版に同梱するファイル(起動用 .cmd と README)。`scripts/publish-portable.ps1` が使う
 - `prototype/` — 画面の見た目の確認(`ui_render_probe`)とアイコン生成(`icon_gen`)の開発用ツール
+
+## 貢献
+
+不具合の報告、英語の文言の修正、小さな Pull request を歓迎します。先に [CONTRIBUTING.md](CONTRIBUTING.md)(末尾に日本語の要約あり)を読んでください。返信や反映には時間がかかります(保証なし)。
 
 ## License
 

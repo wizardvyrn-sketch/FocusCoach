@@ -162,14 +162,14 @@
     <tr><td><kbd>F8</kbd></td><td>Compact view on / off</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd></td><td>Switch language (Japanese / English)</td></tr>
   </table>
-  <p>Hotkeys can be changed in <code>settings.json</code>. If another app already owns a key, FocusCoach tells you and every action is still available by button.</p>
+  <p>Hotkeys can be changed in <code>settings.json</code> (the README, section "Settings", lists every setting; key values are virtual-key codes, F9 = 120). If another app already owns a key, FocusCoach tells you and every action is still available by button.</p>
 </div>
 
 <h2><span class="no">9</span>Good to know</h2>
 <ul>
   <li>The start screen is a boot animation (about 2 seconds); click or press <kbd>Esc</kbd> to skip it.</li>
   <li>Everything is stored <b>locally</b>; the app makes no network connections. Do not share the data folder or the logs.</li>
-  <li>The app's windows are not captured by screen sharing or recording.</li>
+  <li>The main windows, dialogs, compact view and guide cards do not appear in screen sharing or recordings (the boot screen and the tray menu do; they show no task data).</li>
   <li>A crashed or unfinished task can be resumed the next time you start the app.</li>
 </ul>
 <div class="note warn">This is a prototype. See "Known limitations" in the README.</div>
@@ -273,14 +273,14 @@
     <tr><td><kbd>F8</kbd></td><td>コンパクト表示の切り替え</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd></td><td>表示言語の切り替え(日本語 / English)</td></tr>
   </table>
-  <p>キーは <code>settings.json</code> で変えられます。ほかのアプリが同じキーを使っているときは画面でお知らせします。ボタンでも同じ操作ができます。</p>
+  <p>キーは <code>settings.json</code> で変えられます(README の「設定(settings.json)」に項目の一覧があります。キーの値は仮想キーコードで、F9 = 120)。ほかのアプリが同じキーを使っているときは画面でお知らせします。ボタンでも同じ操作ができます。</p>
 </div>
 
 <h2><span class="no">9</span>知っておくこと</h2>
 <ul>
   <li>起動時に、約 2 秒の起動画面が出ます。クリックか <kbd>Esc</kbd> で飛ばせます。</li>
   <li>記録は<b>この PC の中だけ</b>に保存され、ネットワークには接続しません。データのフォルダやログは、他人に渡さないでください。</li>
-  <li>アプリの画面は、画面共有や録画に映りません。</li>
+  <li>主なウィンドウ・ダイアログ・コンパクト表示・案内カードは、画面共有や録画に映りません(起動画面とトレイのメニューは映りますが、作業の内容は出ません)。</li>
   <li>途中で終了した・中断したタスクは、次の起動で再開できます。</li>
 </ul>
 <div class="note warn">プロトタイプです。README の「Known limitations」(既知の制限)をご覧ください。</div>
