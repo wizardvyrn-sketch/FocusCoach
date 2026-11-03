@@ -58,7 +58,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\publish-portable.ps1
 - `docs/Version.md` — バージョン履歴
 - `CLAUDE.md` — Claude Code 向けのプロジェクト説明と作業ルール
 - `deploy/` — 持ち運び版に同梱するファイル(起動用 .cmd と README)。`scripts/publish-portable.ps1` が使う
-- `prototype/` — 技術的な不明点の検証と、実機確認用の使い捨てツール
+- `prototype/` — 画面の見た目の確認(`ui_render_probe`)とアイコン生成(`icon_gen`)の開発用ツール
 
 ## License
 

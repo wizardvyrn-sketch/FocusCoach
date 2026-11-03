@@ -168,7 +168,7 @@
 | `src/FocusCoach.App/MainWindow.xaml.cs` | `ResetStartPanel`、`UpdateStartEnabled`、`CollectDraft` と保存の呼び出し、`ApplyTaskFor`、F8 の登録と WM_HOTKEY(ID 3)、`ToggleCompact` / `ShowFullTemporarily` / `EndTemporaryFull`、`Render` から HUD を更新 |
 | `src/FocusCoach.App/App.xaml` | `CaptionButton` の大きさ、`CloseCaptionButton`、プレースホルダー用の文字色 |
 | `tests/FocusCoach.Core.Tests/` | `DraftTests`(保存・読み込み・一覧の条件と並び・v4→v5 の移行)、`HudPolicyTests`、`RecoveryTests.Db_migrates_from_v1_to_latest` に v5 の列の削除を追加 |
-| `prototype/ui_render_probe` / `ui_close_flow_probe.ps1` | 空の開始準備・コンパクト表示の描画を追加。ボタン名の変更(「タスク完了」)に追従 |
+| `prototype/ui_render_probe` | 空の開始準備・コンパクト表示の描画を追加。ボタン名の変更(「タスク完了」)に追従 |
 | 仕様 03 / 04 / 05 / 09、Version、plan | 下の §4 |
 
 ### 主なコード修正案(抜粋)
@@ -318,7 +318,7 @@ public sealed class CompactHud : Window
 | 1 | Core `HudPolicy` + テスト | `dotnet test`(クラウドでも可) |
 | 2 | Storage スキーマ v5、`TaskDraft`、`SaveDraft` / `LoadDraft`、`ListCategories` の変更 + テスト(移行テストの更新を含む) | `dotnet test` |
 | 3 | R1 + R2 の画面(空から開始、プレースホルダー、開始ボタンの有効/無効、下書きの保存と自動入力) | `ui_render_probe` の画像、UI Automation(入力 → 閉じる → 再起動 → 一覧に出る → 選ぶと復元) |
-| 4 | R3 タイトル帯のボタンと「タスク完了」 | 画像、`ui_close_flow_probe.ps1`(ボタン名を更新) |
+| 4 | R3 タイトル帯のボタンと「タスク完了」 | 画像 |
 | 5 | R4 `CompactHud` と切り替え・一時的に戻す・F8 | 画像(HUD 単体)、Win32 で拡張スタイル(WS_EX_TRANSPARENT / LAYERED)と表示の除外(0x11)を確認、UI Automation で F8 相当の切り替え(`ToggleCompact` をボタンから) |
 | 6 | 仕様書・Version 0.10A・plan、持ち運び版の再作成(`scripts/publish-portable.ps1`) | — |
 

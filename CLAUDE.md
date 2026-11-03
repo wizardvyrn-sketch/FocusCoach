@@ -14,7 +14,7 @@ FocusCoach (working title, 業務作業集中コーチングアプリ) — a Win
 - `docs/concept.md` — the user's raw concept notes (input only; spec wins on conflict).
 - `docs/plan.md` — progress checklist, current step, next action, gotchas.
 - `docs/Version.md` — version history.
-- `docs/review/` — reviews and records behind decisions: `review-0.4A.md` (code review, fix list R-xx, test items L-xx), `psychology-ideas.md` (enhancement ideas I-01..I-14), `realdevice-2026-10-04.md` (home-PC verification evidence). Keep plan.md short; put long investigations here.
+- `docs/review/` — design notes behind decisions: `psychology-ideas.md` (enhancement ideas I-01..I-14) and `design-*.md` (design and rationale per feature). Keep plan.md short; put long investigations here.
 - Each spec chapter ends with 未決事項 (open items, IDs like `U-05-2`); move an item into the body when decided.
 
 ## Planned stack (recommended, not yet locked — U-07-1)

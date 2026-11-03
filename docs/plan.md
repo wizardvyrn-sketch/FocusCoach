@@ -29,8 +29,8 @@
 0a. **USB メモリへの配布**: `publish\usb\FocusCoach` に最新(0.13A)の持ち運び版を作った(USB は未接続だったため)。USB に `FocusCoach` フォルダごとコピーする。`scripts/publish-portable.ps1 -Dest <USB>:\FocusCoach` で直接作ることもできる。別の端末での起動は未確認(L-29)
 1. 0.8A・0.9A の確認(L-28 タスクのプルダウンと手順エディタ、L-29 別の端末での起動)。あわせて、起動するとセッション開始時に `[sync]` の行が出ること、アプリ起動で `logs/app-*.log` に `started version=…` が出ること、新デザインの見た目(L-27)、最初の一手(L-25)、次の一手(L-26)、実行中の ×(L-13 の3通り)。
 2. 残りの未確認項目(下の表の「未」)を、優先度の高いものから行う。
-3. **業務PCで** `prototype/workpc_check.ps1` を実行して結果をもらう(W-01)。F9/F10 の衝突も確認する(W-06)。
-4. 残りの修正事項([review/review-0.4A.md](review/review-0.4A.md) §8 の「未着手」)と、業務PCの結果を受けた Office COM / Recent / ブラウザ履歴 / 資料ランチャー(S6)。
+3. **業務PCでの実機確認**(アクセス記録の方式、Office COM、Teams/Outlook の検出 W-01、F9/F10 の衝突 W-06)。確認用のスクリプトは公開版には含めていない。
+4. 残りの修正事項と、業務PCの結果を受けた Office COM / Recent / ブラウザ履歴 / 資料ランチャー(S6)。
 5. 心理学的な強化案([review/psychology-ideas.md](review/psychology-ideas.md))の残り(I-02 区切りでまとめて処理、I-03 分かったこと、I-04 明日の自分へ)は、0.7A を実際に使ってから判断する。
 
 ## 動かし方
@@ -49,7 +49,6 @@ dotnet run --project src/FocusCoach.App        # 最初は「練習モード」(
 powershell -ExecutionPolicy Bypass -File scripts\publish-portable.ps1 -Dest E:\FocusCoach   # 他の端末用の持ち運び版を作って置く(0.9A)
 #   試用で実際の記録と分けるときは、先に環境変数 FOCUSCOACH_DATA に別のフォルダを指定する
 dotnet run --project prototype/ui_render_probe -- <出力フォルダ>          # 画面の見た目を PNG にする
-powershell -ExecutionPolicy Bypass -File prototype\ui_close_flow_probe.ps1  # 開始 → × → 振り返りを自動で確認
 ```
 
 ## チェックリスト
@@ -69,7 +68,7 @@ powershell -ExecutionPolicy Bypass -File prototype\ui_close_flow_probe.ps1  # �
 ## 要ローカル実機確認
 - **持ち運び版 E:\FocusCoach は 0.9A のまま**(0.10A を作った 2026-10-06 に E: がつながっておらず、更新できなかった)。E: をつないだら `powershell -ExecutionPolicy Bypass -File scripts\publish-portable.ps1 -Dest E:\FocusCoach` で 0.10A に更新する。
 
-状態: ○ 確認済み / △ 一部確認 / 未 未確認。2026-10-04 の確認の根拠と詳細は [review/realdevice-2026-10-04.md](review/realdevice-2026-10-04.md)。手順の詳細は [review/review-0.4A.md](review/review-0.4A.md) §5.2・§7.3。
+状態: ○ 確認済み / △ 一部確認 / 未 未確認。
 
 | 優先 | No | 確認すること | 状態 |
 |------|----|--------------|------|
@@ -112,7 +111,7 @@ powershell -ExecutionPolicy Bypass -File prototype\ui_close_flow_probe.ps1  # �
 | 3 | L-19 | DB を別のアプリで開いたまま終了 → 落ちずにエラー表示、ログが残る | 未 |
 | 3 | L-21 / L-22 | 外から業務PCへリモートデスクトップで接続して使う場合に、切断が離席(remote)になる。接続元の全画面で F9 が届く | 未 |
 
-その他の未決: U-09-8(マイクの周囲音量で会話を判定できるか)。U-05-2(アクセス記録)は業務PCの `workpc_check.ps1` で確認する(自宅PCの結果は参考扱い)。
+その他の未決: U-09-8(マイクの周囲音量で会話を判定できるか)。U-05-2(アクセス記録)は業務PCでの実機確認が必要(自宅PCの結果は参考扱い)。
 
 ## 注意点・決定事項
 
@@ -160,11 +159,10 @@ powershell -ExecutionPolicy Bypass -File prototype\ui_close_flow_probe.ps1  # �
 - シナリオの DSL は 08章 §8.2。時刻は `HH:MM`(`00:12` = 12分)、サブタスク番号は 1 始まり。
 
 ### 実機確認のやり方
-- 疑似キー入力は使わない。自動操作は UI Automation と Win32 で行う(`prototype/ui_close_flow_probe.ps1`)。標準のメッセージボックスは UIA で中身が取れないので、子ウィンドウを列挙して `BM_CLICK` で押す。
+- 疑似キー入力は使わない。自動操作は UI Automation と Win32 で行う(ボタンは、言語で替わる表示名ではなく `AutomationId` で探す)。
 - 見た目は `prototype/ui_render_probe`(RenderTargetBitmap で PNG にする)で確認する。画面のキャプチャは、画面共有からの除外で黒くなり、PC がロック中だと失敗する。除外を外したいときだけ `FOCUSCOACH_ALLOW_CAPTURE=1`(開発用)。
 - 試用は `FOCUSCOACH_DATA` で保存先を分ける。
 - `.ps1` は `powershell -ExecutionPolicy Bypass -File` で実行する。日本語を含む `.ps1` は BOM 付き UTF-8 で保存する(Windows PowerShell 5.1 が Shift-JIS として読むため)。
-- 業務PCは USB メモリへ書き込めないため、`workpc_check.ps1` は結果を画面に OK/NG だけ表示する。
 
 ### 未決の小さな判断
 - 0.7B から、起動のたびに `logs/app-*.log` へ `started version=…` を1行出す(どの exe が動いたかを確かめるため。保存先のパスは出さない)。

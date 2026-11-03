@@ -105,7 +105,7 @@ FocusCoach/
 
 ## 7.6 実装状況(0.13A 時点)
 
-経緯は `docs/Version.md`、修正事項の反映状況は `docs/review/review-0.4A.md` §8、実機での確認状況は `docs/plan.md`「要ローカル実機確認」を参照する。
+経緯は `docs/Version.md`、実機での確認状況は `docs/plan.md`「要ローカル実機確認」を参照する。
 
 | プロジェクト | 状態 |
 |--------------|------|
@@ -118,7 +118,7 @@ FocusCoach/
 
 - 実装中の暫定判断は、コード上に `[仮案-NN]` のマークを付けた。一覧は `docs/plan.md` にある。
 - 新しい挙動は、`tests/scenarios/*.txt` のシナリオと xUnit のテストを先に(または同時に)追加する。
-- Windows 実機でしか確かめられない部分は、`prototype/ui_close_flow_probe.ps1`(UI Automation による操作)と `prototype/ui_render_probe`(画面を PNG にする)で、利用者の手を借りずに確認できる範囲を広げている。
+- Windows 実機でしか確かめられない部分は、`prototype/ui_render_probe`(画面を PNG にする)と UI Automation による操作で、利用者の手を借りずに確認できる範囲を広げている。
 
 ## 未決事項
 

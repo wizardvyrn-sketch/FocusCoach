@@ -128,7 +128,7 @@
 - ホットキーは `RegisterKey(h, id, vk, modifiers)` に修飾キーの引数を足した。登録に失敗したら、今までのホットキーと同じく画面に出す(`hotkey.failed`)。ツールチップの「Language / 言語(Ctrl+Alt+F8)」は、登録できたときだけキーを出す。
 - 区切りの「・」は、英語でも自然な「·」に替えた(日本語でも見た目はほぼ同じ)。振り返りの箇条書きは「• 」。
 - 開発者向けの説明(`Params` の説明)は、画面に出ないので英語にした。ログ・例外のメッセージは、もともと英語が中心(画面に出る一部の例外メッセージ `err.no_task` は辞書へ)。
-- 確認スクリプトは `AutomationId`(`StartButton`・`InterruptButton`・`LangButton`・`ExitOkButton`・`Dialog_Cancel` など)で探す。表示名は言語で替わる。`prototype/ui_close_flow_probe.ps1` は 0.12A のダイアログ置き換えから日本語の表示名・Win32 のメッセージボックス前提のままで、そのままでは動かない。
+- 確認スクリプトは `AutomationId`(`StartButton`・`InterruptButton`・`LangButton`・`ExitOkButton`・`Dialog_Cancel` など)で探す。表示名は言語で替わる。
 
 ### 確認したこと
 
