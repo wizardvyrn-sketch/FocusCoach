@@ -36,7 +36,7 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
-        // 表示言語を先に決める(auto は OS の言語に合わせる)。書体も言語に合わせる(docs/review/design-0.13A-i18n.md)
+        // 表示言語を先に決める(auto は OS の言語に合わせる)。書体も言語に合わせる(prototype/review/design-0.13A-i18n.md)
         Loc.SetLanguage(Loc.Resolve(Host.Settings.Language));
         LangFonts.Apply();
         InitializeComponent();
@@ -163,7 +163,7 @@ public partial class MainWindow : Window
         }
     }
 
-    // ---------------- 表示言語の切り替え(docs/review/design-0.13A-i18n.md) ----------------
+    // ---------------- 表示言語の切り替え(prototype/review/design-0.13A-i18n.md) ----------------
 
     /// <summary>タイトル帯のボタン・トレイのメニュー・ホットキー(既定 Ctrl+Alt+F8)から。表示だけを替え、作業の状態・記録には影響しない。</summary>
     private void SetLanguage(string code)

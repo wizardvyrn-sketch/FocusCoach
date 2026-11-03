@@ -14,7 +14,7 @@ public sealed record ExitCardModel(IReadOnlyList<string> Categories, string Init
     int TidyCount, bool TidyDefault, bool AllowTidy, Point? Position);
 
 /// <summary>
-/// 出口カード(S-11a。docs/review/design-0.12A-interrupt-closure.md §3)。割り込みを閉じて、元の作業に戻る前に開く。
+/// 出口カード(S-11a。prototype/review/design-0.12A-interrupt-closure.md §3)。割り込みを閉じて、元の作業に戻る前に開く。
 /// - 何も書かずに Enter 1回で閉じられる(完了)。書くのは「あとでやることが残る」ときだけ。
 /// - 利用者が F9 / [元の作業へ] を押したときだけ開く。入力のため、この間だけアクティブになる(メモ入力と同じ)。
 /// - Esc は「まだ対応を続ける」(割り込み対応中のまま)。画面共有には映さない(件名に顧客名が入りうるため)。

@@ -11,7 +11,7 @@ using FocusCoach.Storage;
 namespace FocusCoach.App;
 
 /// <summary>
-/// コンパクト表示(03 S-04、docs/review/design-0.10A-usability.md R4)。画面を必要な要素だけ(状態・手順名・経過時間・縁の色)に縮めた、
+/// コンパクト表示(03 S-04、prototype/review/design-0.10A-usability.md R4)。画面を必要な要素だけ(状態・手順名・経過時間・縁の色)に縮めた、
 /// 半透明の小さなウィンドウ。透過(AllowsTransparency)はウィンドウを作った後には切り替えられないので、メインのウィンドウとは別にしている。
 /// - 通常は半透明で、クリックを下のアプリに通す(WS_EX_TRANSPARENT)。マウスを重ねるとさらに薄くなり、下の画面が見える。
 /// - Ctrl を押しながらマウスを重ねている間だけ、不透明になってクリックを受ける([⤢] で元に戻す、ドラッグで移動)。

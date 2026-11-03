@@ -16,7 +16,7 @@ public sealed record ReentryGuideModel(string TaskName, string SubtaskName, stri
     int Seconds, string Message, bool ShowHint, Rect? Anchor);
 
 /// <summary>
-/// 再入場ガイド(S-11b。docs/review/design-0.12A-interrupt-closure.md §4)。割り込みを閉じたあと、元の作業のウィンドウの上に重ね、
+/// 再入場ガイド(S-11b。prototype/review/design-0.12A-interrupt-closure.md §4)。割り込みを閉じたあと、元の作業のウィンドウの上に重ね、
 /// 決まった秒数(既定40秒)で消えて作業中に戻る。その間に何をするかは本人に任せる(書かない)。
 /// - フォーカスを奪わない(WS_EX_NOACTIVATE)。後ろの作業ウィンドウでそのまま作業を始められる。
 /// - 急かさない: 秒の数字は小さく、主役はゆっくり満ちていく輪。音・点滅は無し。

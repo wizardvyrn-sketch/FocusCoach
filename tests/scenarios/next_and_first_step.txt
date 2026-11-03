@@ -1,4 +1,4 @@
-# I-01: 再開メモは「どこまで / 次の一手」の2行 / I-05: 着手の一手(docs/review/psychology-ideas.md)
+# I-01: 再開メモは「どこまで / 次の一手」の2行 / I-05: 着手の一手(prototype/review/psychology-ideas.md)
 at 00:00 start_task category=x subtasks="見積確認,執筆" first_step="見積書を開いて合計欄を見る"
 expect first_step == "見積書を開いて合計欄を見る"
 expect panel.first_step == "見積書を開いて合計欄を見る"     # 最初のサブタスクの間は表示する

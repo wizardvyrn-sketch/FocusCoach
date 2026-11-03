@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace FocusCoach.Core;
 
 /// <summary>
-/// 画面に出す文言の辞書と、表示言語(docs/review/design-0.13A-i18n.md)。画面の部品に依存しないので、Core の文(ガイド・検証エラーなど)も使う。
+/// 画面に出す文言の辞書と、表示言語(prototype/review/design-0.13A-i18n.md)。画面の部品に依存しないので、Core の文(ガイド・検証エラーなど)も使う。
 /// 辞書は埋め込みの JSON(Strings/ja.json、Strings/en.json)。キーが無いときは 言語 → en → 「⟦キー⟧」の順で補い、実行は止めない。
 /// 言語を足すには、Strings/xx.json を足して <see cref="Languages"/> に加える。ただし切り替えの操作(ボタン・トレイ・ホットキー。<see cref="Next"/>)は ja ⇄ en の2つ固定なので、3言語目には選ぶ方法も要る。
 /// </summary>

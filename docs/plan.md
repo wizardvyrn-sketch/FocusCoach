@@ -1,7 +1,7 @@
 # plan.md — 進捗と再開ポイント
 
 セッション間の引き継ぎはこのファイルで行う。会話履歴には頼らない。
-フェーズの定義は [spec/07-tech-stack.md](spec/07-tech-stack.md) §7.3 が正。過去の経緯は [Version.md](Version.md) と `docs/review/` にある。
+フェーズの定義は [spec/07-tech-stack.md](spec/07-tech-stack.md) §7.3 が正。過去の経緯は [Version.md](Version.md) と `prototype/review/` にある。
 
 ## 現在のステップ
 
@@ -13,10 +13,10 @@
 - クラウドとローカルの同期の仕組み(`scripts/session-sync.sh` と SessionStart フック、CLAUDE.md の「Cloud ⇄ local sync」)と、起動時にバージョンをアプリログへ出す変更(0.7B)
 - タスク欄を過去のタスクから選べるプルダウンにし、手順エディタ(手順の登録)を追加(0.8A。ローカルで実装。描画した画像と UI Automation による一連の操作で確認済み)
 - 他の端末で使える持ち運び版(自己完結。.NET の実行環境ごと同梱)を `scripts/publish-portable.ps1` で作り、E:\FocusCoach に置いた(0.9A。E:\ から起動して、同梱の .NET で動くことを確認済み。**別の端末での起動は未確認**)
-- 0.9A を使って見つかった4点の改善(0.10A): 開始準備を空から始める / 入力を下書きとして保存しプルダウンに出す(「一覧から外す」付き)/ タイトル帯を標準の大きさにして「タスク完了」と区別 / コンパクト表示(F8、半透明、クリック透過)。設計は [review/design-0.10A-usability.md](review/design-0.10A-usability.md)
+- 0.9A を使って見つかった4点の改善(0.10A): 開始準備を空から始める / 入力を下書きとして保存しプルダウンに出す(「一覧から外す」付き)/ タイトル帯を標準の大きさにして「タスク完了」と区別 / コンパクト表示(F8、半透明、クリック透過)。設計は [prototype/review/design-0.10A-usability.md](../prototype/review/design-0.10A-usability.md)
 - 0.10A を使って見つかった3点の改善(0.11A): コンパクト表示を元のウィンドウの左上起点に / 最小化をタスクトレイへ格納 / アイコン(近未来・ペンで描く)。2つ目の起動は起動中のアプリを開く(案内ダイアログは廃止)
-- 割り込みからの再開を支える機能(0.12A。技術系の商品開発の現場で、問い合わせによる頻繁な中断への対策。新しく入ったメンバーにも配る想定): 割り込み対応ボタン(しおり)/ 出口カード(カテゴリ・あとでやること)/ 40秒の再入場ガイド / あとでやること(一覧・件数)/ ダイアログをアプリのテーマに。設計と心理学的な評価は [review/design-0.12A-interrupt-closure.md](review/design-0.12A-interrupt-closure.md)
-- 英語表示の切り替え(0.13A。GitHub 公開に向けた多言語化): 画面の文言を辞書(ja / en の JSON、約240キー)に移し、タイトル帯の JA / EN ボタン・トレイのメニュー・Ctrl+Alt+F8 で切り替え。設計は [review/design-0.13A-i18n.md](review/design-0.13A-i18n.md)
+- 割り込みからの再開を支える機能(0.12A。技術系の商品開発の現場で、問い合わせによる頻繁な中断への対策。新しく入ったメンバーにも配る想定): 割り込み対応ボタン(しおり)/ 出口カード(カテゴリ・あとでやること)/ 40秒の再入場ガイド / あとでやること(一覧・件数)/ ダイアログをアプリのテーマに。設計と心理学的な評価は [prototype/review/design-0.12A-interrupt-closure.md](../prototype/review/design-0.12A-interrupt-closure.md)
+- 英語表示の切り替え(0.13A。GitHub 公開に向けた多言語化): 画面の文言を辞書(ja / en の JSON、約240キー)に移し、タイトル帯の JA / EN ボタン・トレイのメニュー・Ctrl+Alt+F8 で切り替え。設計は [prototype/review/design-0.13A-i18n.md](../prototype/review/design-0.13A-i18n.md)
 - Secrypt と同じ SPIRE デザインの起動時ロゴ画面、言語の前提の明記、0.12A・0.13A の変化点のコードレビューと修正(0.14A)
 - GitHub 公開の準備(`git-publish-check-n-execute` の手順。2026-11-03 開始): 方針は「1コミットの新リポジトリ `FocusCoach` / 作成者 wizardvyrn-sketch + noreply メール / Releases に ZIP を添付」。英語 README・SECURITY.md・THIRD-PARTY-NOTICES.md(原文を連結して生成: `make_notices` 相当)を追加、旧 README は README.ja.md に。Release ビルドは PDB を付けず PathMap でパスを置換(`Directory.Build.props`)、`publish-portable.ps1` が LICENSE・第三者の表記を同梱し `-ZipPath` で ZIP と SHA-256 を作る。テスト用の ZIP を検査して PDB のパス・個人情報の混入なしを確認済み。公開そのものは未実施(下の手順を1ステップずつ、利用者の確認を取って進める)
 
@@ -31,7 +31,7 @@
 2. 残りの未確認項目(下の表の「未」)を、優先度の高いものから行う。
 3. **業務PCでの実機確認**(アクセス記録の方式、Office COM、Teams/Outlook の検出 W-01、F9/F10 の衝突 W-06)。確認用のスクリプトは公開版には含めていない。
 4. 残りの修正事項と、業務PCの結果を受けた Office COM / Recent / ブラウザ履歴 / 資料ランチャー(S6)。
-5. 心理学的な強化案([review/psychology-ideas.md](review/psychology-ideas.md))の残り(I-02 区切りでまとめて処理、I-03 分かったこと、I-04 明日の自分へ)は、0.7A を実際に使ってから判断する。
+5. 心理学的な強化案([prototype/review/psychology-ideas.md](../prototype/review/psychology-ideas.md))の残り(I-02 区切りでまとめて処理、I-03 分かったこと、I-04 明日の自分へ)は、0.7A を実際に使ってから判断する。
 
 ## 動かし方
 

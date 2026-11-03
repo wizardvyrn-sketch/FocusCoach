@@ -4,7 +4,7 @@ namespace FocusCoach.Core;
 public sealed record HudLook(bool ClickThrough, double Opacity);
 
 /// <summary>
-/// コンパクト表示(03 S-04、docs/review/design-0.10A-usability.md R4)の見た目を決める純粋関数。
+/// コンパクト表示(03 S-04、prototype/review/design-0.10A-usability.md R4)の見た目を決める純粋関数。
 /// OS に依存しないので、クラウドでもテストできる。
 /// </summary>
 public static class HudPolicy

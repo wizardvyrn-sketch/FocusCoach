@@ -4,7 +4,7 @@ using Xunit;
 
 namespace FocusCoach.Core.Tests;
 
-/// <summary>多言語化(docs/review/design-0.13A-i18n.md)。辞書の整合、日本語の直書きの取りこぼし、英語での出力。</summary>
+/// <summary>多言語化(prototype/review/design-0.13A-i18n.md)。辞書の整合、日本語の直書きの取りこぼし、英語での出力。</summary>
 public class LocalizationTests
 {
     private static readonly Regex Placeholder = new(@"\{(\d+)(?::[^}]*)?\}", RegexOptions.Compiled);

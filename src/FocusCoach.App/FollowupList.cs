@@ -8,7 +8,7 @@ using FocusCoach.Platform.Windows;
 namespace FocusCoach.App;
 
 /// <summary>
-/// あとでやること(S-12。docs/review/design-0.12A-interrupt-closure.md §5)の一覧。0.12A は簡単版:
+/// あとでやること(S-12。prototype/review/design-0.12A-interrupt-closure.md §5)の一覧。0.12A は簡単版:
 /// 期限の区分ごとに並べ、チェックで完了、× で削除。完了は7日間だけ下に畳んで見せる(取り消しできるように)。
 /// 顧客名が入りうるので、画面共有には映さない。1つだけ開く(もう一度開くと前に出す)。
 /// </summary>

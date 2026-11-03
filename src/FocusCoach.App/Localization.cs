@@ -9,7 +9,7 @@ namespace FocusCoach.App;
 
 /// <summary>
 /// XAML から文言の辞書を引くための束縛元。言語が替わると「Item[]」の変更通知を出し、{loc:T キー} の文字がその場で替わる
-/// (ウィンドウは作り直さない)。docs/review/design-0.13A-i18n.md §2.2。
+/// (ウィンドウは作り直さない)。prototype/review/design-0.13A-i18n.md §2.2。
 /// </summary>
 public sealed class LocSource : INotifyPropertyChanged
 {
@@ -39,7 +39,7 @@ public sealed class TExtension : MarkupExtension
         new Binding { Source = LocSource.Instance, Path = new PropertyPath($"[{Key}]"), Mode = BindingMode.OneWay }.ProvideValue(serviceProvider);
 }
 
-/// <summary>言語ごとの書体(英語は幅の狭い Segoe UI 系、日本語は今までどおり)。docs/review/design-0.13A-i18n.md §2.4。</summary>
+/// <summary>言語ごとの書体(英語は幅の狭い Segoe UI 系、日本語は今までどおり)。prototype/review/design-0.13A-i18n.md §2.4。</summary>
 internal static class LangFonts
 {
     private static readonly FontFamily JaFont = new("BIZ UDPGothic, Yu Gothic UI, Meiryo UI");

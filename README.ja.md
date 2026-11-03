@@ -175,11 +175,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\publish-portable.ps1
 - `docs/concept.md` — 構想イメージ原文(仕様の出発点。仕様と矛盾する場合は `docs/spec/` が正)
 - `docs/spec/` — 仕様書本体(決定事項の正)
 - `docs/plan.md` — 進捗、再開ポイント、次の作業
-- `docs/review/` — レビュー、強化案、実機確認の記録
 - `docs/Version.md` — バージョン履歴
 - `CLAUDE.md` — Claude Code 向けのプロジェクト説明と作業ルール
 - `deploy/` — 持ち運び版に同梱するファイル(起動用 .cmd と README)。`scripts/publish-portable.ps1` が使う
 - `prototype/` — 画面の見た目の確認(`ui_render_probe`)とアイコン生成(`icon_gen`)の開発用ツール
+  - `prototype/review/` — 試作の段階の設計メモと強化案
 
 ## 貢献
 

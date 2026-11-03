@@ -7,6 +7,8 @@
 | `ui_render_probe/` | アプリの各画面(開始準備、作業中、復帰カード、出口カード、再入場ガイド、ダイアログなど)を、画面に出さずに PNG にする(WPF の RenderTargetBitmap)。Renders every screen to PNG files without showing them (useful because screen capture is blocked by the app on purpose). |
 | `icon_gen/` | アプリのアイコンを WPF の描画から作り、`app.ico`(16〜256px)と確認用 PNG を出す。Generates `app.ico` (16-256 px) and preview PNGs from WPF drawing code. |
 
+`review/` には、試作の段階の機能ごとの設計メモ(`design-*.md`)と、心理学的な強化案(`psychology-ideas.md`)を置いている。
+
 ```
 dotnet run --project prototype/ui_render_probe -- <output-folder> [ja|en]
 dotnet run --project prototype/icon_gen -- <output-folder>
