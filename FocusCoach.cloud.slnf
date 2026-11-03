@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "FocusCoach.sln",
+    "projects": [
+      "src\\FocusCoach.Core\\FocusCoach.Core.csproj",
+      "src\\FocusCoach.Storage\\FocusCoach.Storage.csproj",
+      "src\\FocusCoach.Platform.Windows\\FocusCoach.Platform.Windows.csproj",
+      "src\\FocusCoach.Cli\\FocusCoach.Cli.csproj",
+      "tests\\FocusCoach.Core.Tests\\FocusCoach.Core.Tests.csproj"
+    ]
+  }
+}

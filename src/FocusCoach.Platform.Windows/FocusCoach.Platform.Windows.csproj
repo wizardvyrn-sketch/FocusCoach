@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FocusCoach.Core\FocusCoach.Core.csproj" />
+    <ProjectReference Include="..\FocusCoach.Storage\FocusCoach.Storage.csproj" />
+  </ItemGroup>
+</Project>

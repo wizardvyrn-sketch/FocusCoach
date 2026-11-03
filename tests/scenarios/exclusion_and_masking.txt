@@ -1,0 +1,11 @@
+# 除外ルール: シークレットウィンドウは記録しない(ignore)、パスワード管理アプリも
+at 00:00 start_task category="テスト" project="ZZ" subtasks="作業"
+at 00:00 focus process=WINWORD.EXE title="a.docx - Word" task_window=yes
+at 00:05 focus process=msedge.exe title="新しいタブ - InPrivate"
+expect foreground.task_window == yes     # InPrivate は無視されたので、前面は Word のまま
+at 00:06 focus process=KeePass.exe title="データベース"
+expect foreground.task_window == yes
+at 00:07 focus process=chrome.exe title="社内ポータル"
+expect foreground.task_window == no
+at 00:10 end_task
+expect metrics.switch_count == 1

@@ -1,0 +1,29 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+*.binlog
+publish/
+
+# 実行時データ(実機の記録は機密を含みうるため、決してコミットしない)
+sessions/
+logs/
+audio/
+models/
+*.db
+*.db-shm
+*.db-wal
+*.jsonl
+!tests/**/*.jsonl
+
+# OS / エディタ
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/
+
+# Claude Code ローカル設定
+.claude/settings.local.json

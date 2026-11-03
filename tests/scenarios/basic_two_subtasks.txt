@@ -1,0 +1,18 @@
+# 08章 §8.2 のシナリオ例(架空のデータ)
+at 00:00 start_task category="開発計画書作成" project="XX"
+at 00:00 focus process=EXCEL.EXE title="見積書.xlsx - Excel" task_window=yes
+at 00:10 resource kind=file location="\\fs01\見積\XX\見積書.xlsx" source=recent
+at 00:12 next_subtask
+at 00:15 focus process=OUTLOOK.EXE title="受信トレイ" task_window=no
+at 00:18 focus process=WINWORD.EXE title="概略仕様書.docx - Word" task_window=yes
+at 00:20 idle_start            # 最後の入力が 00:20
+at 00:24 idle_end              # 4分 ≥ idle_threshold_sec(120秒)なので、区間全体をアイドルとする
+at 00:40 end_task
+expect subtask[1].duration == 12m
+expect metrics.idle_sec == 240
+expect metrics.switch_count == 1
+expect resources.count == 1
+expect metrics.total_sec == 40m
+expect metrics.active_sec == 36m
+expect metrics.off_task_sec == 3m
+expect status == completed

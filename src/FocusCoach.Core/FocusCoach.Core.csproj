@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 画面の文言の辞書(ja / en)。Loc が読む -->
+    <EmbeddedResource Include="Strings\*.json" LogicalName="FocusCoach.Core.Strings.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="FocusCoach.Core.Tests" />
+  </ItemGroup>
+</Project>

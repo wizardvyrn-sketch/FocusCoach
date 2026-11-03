@@ -1,0 +1,31 @@
+# 09章: 割り込み退避 → 復帰カード(架空のデータ)
+at 00:00 start_task category="開発計画書作成" project="YY" subtasks="見積確認,概略仕様確認,執筆"
+at 00:00 focus process=EXCEL.EXE title="見積書.xlsx - Excel" task_window=yes
+at 00:05 resource kind=file location="C:\work\YY\見積書.xlsx" source=recent
+at 00:06 resource kind=folder location="C:\work\YY\" source=explorer
+at 00:08 tray_add kind=text ref="3章の非機能要件を確認済み" note="メモ"
+# 割り込み(すぐ対応): 一時停止し、どこまでやったかを残す
+at 00:10 interrupt kind=now note="見積の2シートまで確認済み"
+expect paused == yes
+expect edge == Paused
+at 00:10 focus process=ms-teams.exe title="チャット"
+at 00:11 resource kind=file location="C:\other\依頼.docx" source=recent    # 一時停止中は記録しない
+expect resources.count == 2
+at 00:33 resume
+expect paused == no
+expect resume_card.subtask == 見積確認
+expect resume_card.note == "見積の2シートまで確認済み"
+expect resume_card.resources == 2
+# 割り込み(棚上げ): 一時停止しない
+at 00:35 interrupt kind=defer note="Aさんへの返信"
+expect paused == no
+expect deferred.count == 1
+at 00:40 next_subtask
+at 01:10 end_task
+expect metrics.interrupt_count == 1
+expect metrics.deferred_count == 1
+expect metrics.interrupt_paused_sec == 23m
+expect metrics.paused_sec == 23m
+expect subtask[1].duration == 17m
+expect subtask[1].resume_note == "見積の2シートまで確認済み"
+expect tray.count == 1

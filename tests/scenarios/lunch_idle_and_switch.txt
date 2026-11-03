@@ -1,0 +1,13 @@
+# レビュー R-15 / R-21 の再現ケース(式 v2 で修正)
+at 00:00 start_task category=x subtasks="A"
+at 00:00 focus process=WINWORD.EXE title="a.docx - Word" task_window=yes
+at 00:10 interrupt kind=now
+at 00:10 focus process=ms-teams.exe title="通話"
+at 00:30 resume
+at 00:30 focus process=WINWORD.EXE title="a.docx - Word" task_window=yes
+at 00:40 idle_start
+at 01:25 idle_end          # 昼休み45分(ロックせず離席)
+at 01:30 end_task
+expect metrics.switch_count == 0        # 割り込み中の Teams との行き来は数えない
+expect subtask[1].duration == 25m       # 一時停止20分とアイドル45分を除く
+expect metrics.active_sec == 25m

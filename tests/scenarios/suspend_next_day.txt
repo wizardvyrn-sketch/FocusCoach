@@ -1,0 +1,18 @@
+# F-15 持ち越し: 中断して翌日、同じ実行として再開する(利用者回答 2026-10-04)
+at 00:00 start_task category=x subtasks="見積確認,執筆"
+at 00:30 next_subtask
+at 01:00 suspend_task
+expect status == suspended
+expect paused == yes
+at 01:05 !next_subtask                   # 中断中は操作できない
+at 01:05 !focus process=WINWORD.EXE title=t
+at 24:00 resume_task                     # 翌日 9:00(仮想時刻は前日 9:00 起点)
+expect status == running
+expect subtask[2].status == active
+at 24:20 end_task
+expect status == completed
+expect subtask[2].duration == 50m        # 前日30分 + 翌日20分
+expect metrics.active_sec == 80m
+expect metrics.work_days == 2
+expect metrics.same_day == 0
+expect last_pause.reason == suspend

@@ -1,0 +1,21 @@
+# 09章 §9.4.1: F9 はワンクリックで一時停止。「どこまで」は後から(F10)
+at 00:00 start_task category=x subtasks="見積確認,執筆"
+at 00:05 interrupt                                    # メモなし、即座に一時停止
+expect paused == yes
+expect subtask[1].resume_note == ""
+at 00:07 interrupt_note text="2シート目まで"            # 電話中に片手が空いたとき
+expect subtask[1].resume_note == "2シート目まで"
+at 00:20 resume
+expect resume_card.note == "2シート目まで"
+at 00:21 interrupt_note text="2シート目の途中まで"      # 再開後の上書きも可
+at 00:22 next_subtask
+at 00:23 interrupt_note text="あとで直す"               # 次のサブタスクに移っても、直前の割り込みのサブタスクに付く
+expect subtask[1].resume_note == "あとで直す"
+expect subtask[2].resume_note == ""
+# 作業中の F10 は棚上げ
+at 00:30 interrupt kind=defer note="Bさんの質問"
+expect deferred.count == 1
+expect paused == no
+at 00:40 end_task
+expect metrics.interrupt_paused_sec == 15m
+at 00:41 !interrupt_note text="終了後は不可"

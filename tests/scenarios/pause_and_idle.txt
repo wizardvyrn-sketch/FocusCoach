@@ -1,0 +1,15 @@
+# 一時停止とアイドルの重なりは二重に数えない / しきい値未満のアイドルは数えない
+at 00:00 start_task category="テスト" project="ZZ" subtasks="作業"
+at 00:00 focus process=WINWORD.EXE title="a.docx - Word" task_window=yes
+at 00:10 idle_start
+at 00:11 idle_end                  # 1分 < 120秒 なので数えない
+expect metrics.idle_sec == 0
+at 00:20 pause reason=meeting
+at 00:30 idle_start
+at 00:36 idle_end                  # 6分のアイドルのうち、一時停止(00:20-00:40)と重なる分は一時停止側に数える
+at 00:40 resume
+at 01:00 end_task
+expect metrics.paused_sec == 20m
+expect metrics.idle_sec == 0
+expect metrics.active_sec == 40m
+expect subtask[1].duration == 40m

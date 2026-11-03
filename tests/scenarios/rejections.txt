@@ -1,0 +1,20 @@
+# 不正なコマンドは拒否され、状態を壊さない
+at 00:00 !pause                          # タスク開始前
+at 00:00 start_task category="テスト" subtasks="A,B"
+at 00:01 !start_task category="テスト2"   # 二重開始
+at 00:02 !resume                         # 一時停止中でない
+at 00:03 pause reason=break
+at 00:04 !pause                          # 二重の一時停止
+at 00:05 !set bogus_param=1
+at 00:05 !set idle_threshold_sec=5       # 範囲外
+at 00:06 resume
+at 00:07 !goto_subtask n=9
+at 00:08 goto_subtask n=2
+at 00:09 goto_subtask n=1                # 戻れる
+at 00:10 end_task
+at 00:11 !next_subtask
+expect subtask[1].duration == 6m         # 0:00-0:08 の8分から一時停止の3分を引き、0:09-0:10 の1分を足す
+expect subtask[2].duration == 1m
+expect status == completed
+at 00:12 ws_action op=close hwnd=0x1 process=chrome.exe result=ok   # 終了後のウィンドウ整理は記録できる
+expect events.ws_close == 1

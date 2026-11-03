@@ -1,0 +1,17 @@
+# R-19: 監視由来の入力は時刻が少し戻っても切り上げて受け付ける / R-22, R-43: オンタスク判定の順序
+at 00:00 start_task category=x subtasks="A" task_apps="WINWORD.EXE, mstsc"
+at 00:00 focus process=WINWORD.EXE title="新規文書 - Word"
+expect foreground.task_window == yes       # 資料が無くてもタスク用アプリはオンタスク
+at 00:05 window_opened hwnd=0x99 process=ms-teams.exe title="チャット(ポップアウト)"
+at 00:05 focus process=ms-teams.exe title="チャット(ポップアウト)" hwnd=0x99
+expect foreground.task_window == no        # 作業中に開いても、割り込みアプリはオフタスク
+at 00:06 window_opened hwnd=0x77 process=notepad.exe title="メモ"
+at 00:06 focus process=notepad.exe title="メモ" hwnd=0x77
+expect foreground.task_window == yes       # それ以外の作業中に開いたウィンドウはオンタスク
+at 00:07 focus process=mstsc.exe title="server01 - リモート デスクトップ接続"
+expect foreground.task_window == yes
+at 00:10 note text="基準"
+at 00:09 focus process=WINWORD.EXE title="新規文書 - Word" origin=monitor   # 1分戻った監視イベントは受け付ける
+at 00:09 !note text="UIからの巻き戻りは拒否"
+at 00:20 end_task
+expect status == completed

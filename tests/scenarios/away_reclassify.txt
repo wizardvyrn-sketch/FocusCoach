@@ -1,0 +1,17 @@
+# 09章 §9.4.1a: ボタンを押さずに離席 → 戻ってから1クリックで割り込みに分類し直す
+at 00:00 start_task category=x subtasks="A"
+at 00:00 focus process=WINWORD.EXE title="a.docx - Word" task_window=yes
+at 00:10 idle_start
+at 00:22 idle_end
+expect metrics.idle_sec == 12m
+at 00:22 away_reclassify target=idle
+expect metrics.idle_sec == 0
+expect metrics.paused_sec == 12m
+expect metrics.interrupt_count == 1
+expect last_pause.reason == interrupt
+expect events.resume_card_shown == 1
+expect paused == no
+at 00:23 !away_reclassify target=idle     # 分類し直したアイドルはもう無い
+at 00:30 end_task
+expect subtask[1].duration == 18m
+expect metrics.interrupt_paused_sec == 12m

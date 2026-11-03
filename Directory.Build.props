@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- クラウドセッション(Linux)でも WPF/Windows プロジェクトをコンパイルできるようにする(実行は不可) -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- 配布物に作業 PC のパス(ユーザー名など)が埋め込まれないようにする: ソースのパスを /_/ に置き換える(再現可能なビルド) -->
+    <Deterministic>true</Deterministic>
+    <PathMap>$(MSBuildThisFileDirectory)=/_/</PathMap>
+  </PropertyGroup>
+  <!-- Release にはデバッグ情報(PDB のフルパスが DLL に入る)を付けない。Debug(開発・テスト)はそのまま -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+</Project>

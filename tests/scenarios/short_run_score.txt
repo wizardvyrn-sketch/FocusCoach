@@ -1,0 +1,9 @@
+# R-44: 1分の実行で切り替えが2回でも、1時間あたりの換算で極端に減点しない(実機ログ 2026-10-04 の再現)
+at 00:00 start_task category=x subtasks="A"
+at 00:00:00 focus process=FocusCoach.exe title=FocusCoach
+at 00:00:26 focus process=explorer.exe title="docs - エクスプローラー"
+at 00:00:42 focus process=FocusCoach.exe title=FocusCoach
+at 00:00:44 focus process=notes.exe title="plan.md"
+at 00:01:00 end_task
+expect metrics.switch_count == 2
+expect metrics.focus_score >= 40          # v1 では 26.5 だった

@@ -1,0 +1,14 @@
+# 09章 §9.4.4: 割り込みアプリに90秒以上滞在すると縁の色が変わる(task_window は自動判定)
+at 00:00 start_task category="開発計画書作成" project="YY" subtasks="執筆:30"
+at 00:00 focus process=WINWORD.EXE title="計画書_YY.docx - Word" task_window=yes
+expect edge == Normal
+at 00:10 focus process=ms-teams.exe title="チャット"
+expect foreground.task_window == no
+at 00:10:30 expect edge == Normal
+at 00:11:40 expect edge == InterruptApp
+at 00:12 focus process=WINWORD.EXE title="計画書_YY.docx - Word" task_window=yes
+expect edge == Normal
+# 目安(30分)超過
+at 00:31 expect edge == Overrun
+at 00:32 set interrupt_app_dwell_sec=30
+expect params.interrupt_app_dwell_sec == 30

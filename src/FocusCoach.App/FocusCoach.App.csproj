@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <!-- タスクトレイのアイコン(System.Windows.Forms.NotifyIcon)のためだけに使う。WPF と名前が重なる暗黙の using は外す -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>FocusCoach</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <!-- WFAC010: WinForms の高 DPI 設定の推奨。高 DPI は WPF 側(app.manifest の PerMonitorV2)で扱い、WinForms は NotifyIcon にしか使わない -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+    <Resource Include="Assets\app.ico" />
+    <!-- 起動時のロゴ画面(SPIRE)の書体: Oxanium・Share Tech Mono(SIL Open Font License 1.1)。ライセンス文を配布物の Fonts\ に置く -->
+    <Resource Include="Fonts\*.ttf" />
+    <None Include="Fonts\*-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FocusCoach.Core\FocusCoach.Core.csproj" />
+    <ProjectReference Include="..\FocusCoach.Storage\FocusCoach.Storage.csproj" />
+    <ProjectReference Include="..\FocusCoach.Platform.Windows\FocusCoach.Platform.Windows.csproj" />
+  </ItemGroup>
+</Project>

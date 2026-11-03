@@ -1,0 +1,25 @@
+# F-15: ロック・スリープ・リモート切断は自動で一時停止。戻ったら割り込みに分類し直せる
+at 00:00 start_task category=x subtasks="A"
+at 00:10 away_start reason=lock origin=monitor
+expect last_pause.reason == lock
+at 00:15 away_end reason=lock origin=monitor
+expect paused == no
+at 00:15 away_reclassify target=pause
+expect last_pause.reason == interrupt
+# 利用者の割り込み中にロック → ロック解除しても割り込みは続く
+at 00:20 interrupt
+at 00:21 away_start reason=lock origin=monitor     # 既に一時停止中なので何もしない
+at 00:25 away_end reason=lock origin=monitor       # 自分が始めた一時停止ではないので解除しない
+expect paused == yes
+expect last_pause.reason == interrupt
+at 00:30 resume
+at 00:40 away_start reason=sleep origin=monitor
+at 01:40 away_end reason=sleep origin=monitor
+at 01:45 away_start reason=remote origin=monitor
+at 01:50 away_end reason=remote origin=monitor
+at 02:00 end_task
+expect pauses.count == 4
+expect metrics.paused_sec == 80m                   # 5 + 10 + 60 + 5
+expect subtask[1].duration == 40m
+expect metrics.interrupt_count == 2
+at 02:01 away_start reason=lock origin=monitor     # 終了後は何もしない(拒否もしない)

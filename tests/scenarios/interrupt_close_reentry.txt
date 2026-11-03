@@ -1,0 +1,45 @@
+# design-0.12A: 割り込み → 出口カードで閉じる → 再入場ガイド → 作業中(架空のデータ)
+at 00:00 start_task category="開発計画書作成" project="YY" subtasks="見積確認,概略仕様確認"
+at 00:00 focus process=EXCEL.EXE title="見積書.xlsx - Excel" task_window=yes
+# しおりを挟む(F9)
+at 00:10 interrupt kind=now
+expect paused == yes
+at 00:11 interrupt_note text="2シートまで" next="3シート目の合計を見る"
+# 割り込み中でなければ閉じられない、のは後で確かめる。ここでは「あとでやることが残る」で閉じる(12分)
+at 00:22 interrupt_close category="営業からの問い合わせ" title="A社 旧版の設定" outcome=followup followup="来週の版で直るか確認して返信" due=2026-01-06 tidy=yes guide_sec=40
+expect paused == no
+expect interrupt_closes.count == 1
+expect last_close.category == 営業からの問い合わせ
+expect last_close.outcome == followup
+expect last_close.followup == 来週の版で直るか確認して返信
+expect last_close.due == 2026-01-06
+expect last_close.interrupt_sec == 12m
+expect followups.count == 1
+# ガイドを出すときは、復帰カードの記録は出さない
+expect events.resume_card_shown == 0
+at 00:22:40 reentry_end how=timeout shown_sec=40 extends=0
+expect reentries.count == 1
+expect last_reentry.how == timeout
+# 閉じた後は割り込み中ではないので、もう一度は閉じられない
+at 00:23 !interrupt_close outcome=done
+# 2回目: 何も書かずに Enter(完了・カテゴリは既定)。ガイドなし(短い割り込み)→ 復帰カードを出す
+at 00:30 interrupt kind=now
+at 00:30:30 interrupt_close
+expect last_close.category == 割込み作業
+expect last_close.outcome == done
+expect last_close.followup == ""
+expect events.resume_card_shown == 1
+# 「あとでやること」を選んだのに中身が空なら拒否(一時停止のまま)
+at 00:40 interrupt kind=now
+at 00:41 !interrupt_close outcome=followup followup=""
+at 00:41 !interrupt_close outcome=maybe
+at 00:41 !interrupt_close outcome=followup followup="x" due=来週
+expect paused == yes
+at 00:42 interrupt_close outcome=done guide_sec=40
+at 00:42:10 reentry_end how=now shown_sec=10
+at 00:42:10 !reentry_end how=later
+at 01:00 end_task
+expect metrics.interrupt_count == 3
+expect metrics.interrupt_paused_sec == 14.5m
+expect interrupt_closes.count == 3
+expect subtask[1].next_step == 3シート目の合計を見る

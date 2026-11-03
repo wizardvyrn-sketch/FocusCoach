@@ -1,0 +1,22 @@
+# I-01: 再開メモは「どこまで / 次の一手」の2行 / I-05: 着手の一手(docs/review/psychology-ideas.md)
+at 00:00 start_task category=x subtasks="見積確認,執筆" first_step="見積書を開いて合計欄を見る"
+expect first_step == "見積書を開いて合計欄を見る"
+expect panel.first_step == "見積書を開いて合計欄を見る"     # 最初のサブタスクの間は表示する
+at 00:10 interrupt
+at 00:11 interrupt_note next="2シート目の工数を合計と照合する"   # 次の一手だけ書く
+expect subtask[1].next_step == "2シート目の工数を合計と照合する"
+expect subtask[1].resume_note == ""
+at 00:12 interrupt_note text="1シート目まで確認済み"             # どこまでだけ足す(次の一手は消えない)
+expect subtask[1].next_step == "2シート目の工数を合計と照合する"
+expect subtask[1].resume_note == "1シート目まで確認済み"
+at 00:12 !interrupt_note text="" next=""                     # 両方空は拒否
+at 00:30 resume
+expect resume_card.next == "2シート目の工数を合計と照合する"
+expect resume_card.note == "1シート目まで確認済み"
+expect resume_card.paused_sec == 20m                         # 再開後も、直前の割り込みの長さを出す
+expect events.resume_card_shown == 1
+at 00:40 next_subtask
+expect panel.first_step == ""                                # 次のサブタスクに進んだら消す
+expect resume_card.next == "2シート目の工数を合計と照合する" # カードは割り込みのサブタスクのメモを出す
+at 00:50 end_task
+expect status == completed
