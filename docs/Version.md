@@ -1,32 +1,28 @@
 # Version
 
-本ファイルを更新履歴の正とする。
+This file is the source of truth for the version history. / 本ファイルを更新履歴の正とする。
 
-## ルール
+## Rules / ルール
 
-- 機能追加・改善: 番号を上げる (例: `0.1A` → `0.2A`)
-- バグ修正: 末尾のレターを上げる (例: `0.1A` → `0.1B`)
-- 仕様に影響する変更をしたら、該当する `docs/spec/0N-*.md` も同じ変更で更新する
+- New feature or improvement: bump the number (`0.1A` → `0.2A`). / 機能追加・改善: 番号を上げる
+- Bug fix: bump the letter (`0.1A` → `0.1B`). / バグ修正: 末尾のレターを上げる
+- When a change affects behaviour, update the matching `docs/spec/0N-*.md` in the same change. / 仕様に影響する変更は、該当する仕様書も同じ変更で更新する
 
-## 履歴
+## History / 履歴
 
-| Version | Date       | Notes |
-|---------|------------|-------|
-| 0.0A    | 2026-10-03 | プロジェクトフォルダ作成、仕様書の章立て(01〜08)の雛形を作成 |
-| 0.1A    | 2026-10-03 | 仕様書 初版(01〜08)。09(集中切れアドバイス)は検討用の叩き台。GitHub リポジトリ接続、クラウドセッション用セットアップ(CLAUDE.md、SessionStartフック、cloud-setup.sh、plan.md) |
-| 0.2A    | 2026-10-03 | 09章を業務スタイルのヒアリングに基づいて改訂(案)。主眼を「集中切れアドバイスポップアップ」から「中断からの復帰支援」(割り込み退避、復帰カード、作業トレイ、周辺表示)に変更。03/05/06/07/08/01 の関連箇所を更新 |
-| 0.3A    | 2026-10-03 | 09章を確定(U-09-1〜7 の回答を反映)。棚上げリスト、開始時の Teams 応答不可の案内を追加。仕様書 01〜09 が揃う |
-| 0.4A    | 2026-10-03 | 第一プロトタイプ。Core(Session / Reducer / 指標 / ガイド・比較 / ワークスペース計画 / 割り込み退避・復帰カード / シナリオDSL / EventLoop)、Storage(JSONL / SQLite)、Cli(`fc scenario` `replay` `guide` `workspace plan` `diag`)、Platform.Windows(Win32・監視・CoreHost。コンパイルのみ)、App(WPF 簡易ミニパネル。型チェックのみ)、xUnit 50件+シナリオ6本。業務PC用の確認ツール(`prototype/workpc_check.ps1`)と自宅PC用スパイクの診断追加も含む |
-| 0.5A    | 2026-10-04 | 作りこみ第一弾(S1〜S5)。仕様: 割り込みの F9/F10 とワンクリック化、離席・ロック・スリープ・リモート切断からの再分類、持ち越し(同じ実行で再開)、画面共有からの除外、指標の式 v2。Core: 式 v2、interrupt_note / away_* / suspend_task / resume_task / ws_snapshot、監視由来の時刻の切り上げ、Session.Restore。Storage: JSONL 末尾の修復、再開候補の検出、DB スキーマ v2、アプリログ、設定ファイル。Platform・App: ホットキー、WTS・電源の通知、NOACTIVATE の修正、メモ入力ウィンドウ、S-06、閉じるときの確認、単一起動、例外処理、Explorer COM の修正(実機未確認)。テスト87件・シナリオ13本 |
-| 0.5B    | 2026-10-04 | 自宅PCの実機確認で見つかった不具合の修正。(1) アイドル状態でアプリを閉じるたびに InvalidOperationException で「予期しないエラー」になっていた(Closing イベント内で Close() を呼んでいた)。(2) JSONL リーダーが書き込み中のファイルを開けなかった(Windows の共有モード。`fc replay`・異常終了の再開候補に影響)。(3) 終了時の設定保存が「無限大/NaN は JSON に書けない」で1回失敗した(再現せず、原因は未特定。位置が有限のときだけ保存し、そうでなければ状態をログに残すようにした)。(4) FocusCoach.sln に App が入っておらず、`dotnet build` で WPF アプリが更新されなかった。確認用に環境変数 FOCUSCOACH_DATA で保存先を変えられるようにした。テスト87件が Windows でも合格 |
-| 0.5C    | 2026-10-04 | 利用者の実機操作で見つかった不具合の修正(L-13)。実行中に × →「はい」で出る振り返りダイアログが所有者なし・パネルが「実行中」の見た目のまま操作でき、押すと `CoreHost.EndAsync()` の `Loop!` で NullReferenceException になり「処理に失敗しました」が続いていた。終了の流れで開始モードへ戻してから、このウィンドウを所有者にして振り返りを出す。実行中でない操作は例外にせず拒否する。閉じる処理の二重実行を防ぐ。アプリログにスタックトレースを出す。バージョン定数(AppInfo.Version)を 0.5C に更新(0.5B で更新漏れ)。UI操作での再現ツール `prototype/ui_close_flow_probe.ps1` を追加 |
-| 0.6A    | 2026-10-04 | 画面のデザインを刷新(03章 §3.4.1、U-03-1 を決定)。「近未来の業務支援システム」のイメージで、深い青緑のダーク背景に青緑・青のアクセント、強い赤・橙を使わない低刺激の配色(目安超過は柔らかい琥珀)。本文は BIZ UDPゴシック、時刻・数字は Bahnschrift。独自の細いタイトル帯(状態の点と「FOCUS COACH」)、作業中は「STEP n / m」・大きな経過時間・細い進み具合のバー。文言を短く(「集中を始める」「完了して次へ」「あとで続ける」など)。メモ入力とウィンドウ整理のダイアログにも同じテーマを適用。割り込みアプリに滞在中は割り込みボタンを強調(09章 §9.4.4)。開発用に `FOCUSCOACH_ALLOW_CAPTURE=1` で画面共有からの除外を外せるようにした(既定は除外)。見た目の確認ツール `prototype/ui_render_probe/` を追加。動作の変更は無し |
-| 0.7A    | 2026-10-04 | (クラウドセッションで 0.6A として作成。画面刷新の 0.6A と番号が重なったため、統合時に 0.7A に振り直した)心理学的な強化案のうち I-01・I-05 を実装。再開メモを「どこまで / 次の一手」の2行にし、復帰カードの一番上に次の一手を出す([メモを直す] 付き)。開始準備に「最初の一手」を追加し、最初のサブタスクの間ミニパネルに表示、次回の初期値にする。DB スキーマ v3。仕様 04/05/08/09 章を更新。テスト90件・シナリオ14本(画面は実機未確認)。統合で、追加した画面要素(最初の一手の入力欄と表示、復帰カードの次の一手と[メモを直す]、2行の再開メモ)を 0.6A のデザインに合わせた |
-| 0.7B    | 2026-10-04 | [cloud] 起動のたびにアプリログへ `started version=…` を1行出す(どの exe が動いたかの確認用。plan.md の未決を解消)。クラウドとローカルの同期: `scripts/session-sync.sh`(セッション開始時に fetch、遅れているだけなら fast-forward、分岐・未コミットは報告のみ)を SessionStart フック(startup / resume)に追加し、CLAUDE.md に「Cloud ⇄ local sync」のルール、cloud-session.md に要約を追加 |
-| 0.8A    | 2026-10-04 | [local] タスク欄を「過去に終了したタスク・手順を登録したタスク」から選べるプルダウンにした(回数・最終日・手順登録済みを表示、最近使った順、新しい名前の入力も可)。手順エディタ(S-02a)を追加: 名前と目安(分)を1行ずつ編集、追加・削除・並べ替え、「このタスクの手順として登録する」で保存。タスクを選ぶと、登録した手順(無ければ前回の手順)が自動で入る。Core に StepList(変換・検証)、DB スキーマ v4(subtask_templates.target_min)、ListCategories / LoadTemplate / SaveTemplate / LoadLastRunSteps。プルダウンの一覧(Popup)も画面共有から除外。仕様 03(S-02、S-02a)/ 04 / 05(F-01)/ 07 を更新。テスト95件 |
-| 0.9A    | 2026-10-04 | [local] 他の端末で使える持ち運び版を追加。`scripts/publish-portable.ps1` が、.NET の実行環境ごと同梱した自己完結の発行(win-x64、約 160MB)を作り、E:\FocusCoach に置く(app\ と起動用ファイル FocusCoach.cmd / FocusCoach-portable.cmd、README.txt、VERSION.txt)。標準セットアップの Win11 Pro で、何もインストールせず動く。持ち運び用の起動は記録を data\ に保存する(FOCUSCOACH_DATA)。テンプレートは `deploy/`。アプリ本体の動作は変更なし |
-| 0.10A   | 2026-10-06 | [local] 0.9A を使って見つかった点の改善。(1) 開始準備は既定で空から始める(起動時とタスク終了後。タスク名が空だと開始できない)。(2) 開始準備の入力(タスク名・プロジェクト・手順・使うアプリ・最初の一手)を下書きとして保存する(開始・閉じる・手順の決定の3か所。スキーマ v5)。実行したことがある(中止・中断中を含む)・手順を登録した・下書きがあるタスクをプルダウンに出し、選ぶと復元する。行の右クリックで「一覧から外す」。(3) タイトル帯を ▭ – ✕ の標準の大きさ(46×34)に。作業中の「終了」を「タスク完了」に改め、アプリを閉じる ✕ との取り違えを防ぐ。(4) コンパクト表示(F8 / ▭): 状態・手順名・経過時間だけの小さな半透明の別ウィンドウ。クリックは下のアプリに通し、Ctrl を押しながら重ねると操作できる。離席の問いかけ・復帰カード・閉じる確認などが出るときは一時的に元の表示に戻る。画面共有からは除外。Core に HudPolicy。設計: docs/review/design-0.10A-usability.md。テスト111件 |
-| 0.11A   | 2026-10-10 | [local] (1) コンパクト表示は、元のウィンドウの**左上を起点**に縮み、戻すときもコンパクト表示の左上に合わせる(以前は右上起点)。置き場所の判断は Core の HudPlacement(画面の外に出さない。テスト8件)。位置は保存しない。(2) 最小化(–・Win+M・タスクバーからの最小化)は**タスクトレイに格納**する(タスクバーのボタンも消える)。トレイのアイコンは起動中は常に出し、左クリックで格納前の表示に戻り、右クリックのメニューは 開く / コンパクト表示 / アプリを閉じる。トレイ格納中も F8・F9・F10 が使える。初回だけ吹き出しで場所を知らせる。2つ目の起動は案内ダイアログを出さず、起動中のアプリに合図して終了する(トレイにいても出てくる)。(3) アイコン(近未来・ペンで描く。exe・ウィンドウ・トレイ)を追加。`prototype/icon_gen` で生成。(4) 隠れている間はウィンドウの位置が NaN になる問題(設定の保存の警告)を、隠す前に位置を控える形で解消。トレイに System.Windows.Forms.NotifyIcon を使うため、App に UseWindowsForms を追加(クラウド用の型チェックにも反映)。仕様 03 §3.5、07 を更新。テスト119件 |
-| 0.12A   | 2026-10-29 | [local] 割り込みからの再開を支える機能(設計: docs/review/design-0.12A-interrupt-closure.md)。(1) **割り込み対応ボタン**: しおりのアイコンと「割り込み対応  F9」。1回押すだけ・確認なし・警告色なし。対応中は「元の作業へ  F9」と戻る矢印、状態表示は「割り込み対応中」、縁の文言は「しおりを挟みました…」。コンパクト表示(Ctrl で触れるとき)とトレイのメニューにも置いた。(2) **出口カード**(S-11a): 対応中の F9 で開く。カテゴリ(利用者が増やせる。既定は「割込み作業」だけ)、件名(任意)、完了 / あとでやることが残る(1行と期限)、割り込みで開いたウィンドウの片付け。何も書かずに Enter(または F9 をもう一度)で閉じられる。Esc は「まだ対応を続ける」。離席を割り込みに分類し直したときも出す。(3) **再入場ガイド**(S-11b): 閉じると元の作業ウィンドウを前に出し、その上に「元の作業に戻ります」・次の一手・「40秒で、元の作業に集中しましょう」と満ちていく輪を重ね、時間で消えて作業中に戻る。フォーカスを奪わない。[今すぐ戻る] [+30秒]。60秒未満の割り込みでは出さない(そのときは今までの復帰カード)。時間切れで他のアプリに入力中なら、フォーカスを移さない。初回だけ「時間の使い方は自由です」。(4) **あとでやること**(S-12): 出口カードで残ったものをローカルの DB に保存し、タスクをまたいで残す。ミニパネルに「あとでやること n ・今日まで m」、一覧(チェックで完了・削除・完了は7日だけ表示)、トレイのメニュー、振り返りに表示。(5) **ダイアログをアプリのテーマに**: Windows 標準の MessageBox をやめ、同じ見た目の FcDialog に置き換えた(閉じるときは「閉じない / 終了して閉じる / 中断して閉じる」、既定は記録を失わない「中断して閉じる」)。メモ・手順エディタ・ウィンドウ整理・出口カード・一覧も、白い標準のタイトルバーをやめ、メインと同じタイトル帯にした。Core に InterruptClose / ReentryEnd、ReentryPolicy、Followups(テスト・シナリオ追加)。DB スキーマ v6(interrupt_categories / interrupt_records / followups)。設定 ReentryGuideSec(40)/ ReentryGuideMinInterruptSec(60)/ ReentryGuideMessage など。仕様 03 / 04 / 05 / 09 を更新。テスト145件・シナリオ15本 |
-| 0.13A   | 2026-11-03 | [local] **英語表示の切り替え**(GitHub 公開に向けた多言語化。設計: docs/review/design-0.13A-i18n.md)。(1) 画面の文言をキー付きの辞書(`Core/Strings/ja.json`・`en.json`、約240キー)に移し、`Loc`(Core)で引く。XAML は `{loc:T キー}` の束縛で、**ウィンドウを作り直さずその場で替わる**。キー欠けは ⟦キー⟧ と出て実行は止めない。(2) 切り替え: タイトル帯の `JA` / `EN` ボタン、トレイのメニュー「Language / 言語」(日本語・English)、グローバルホットキー **Ctrl+Alt+F8**(設定 HotkeyLanguage / HotkeyLanguageModifiers。0 で無効。ファンクションキー単独は Word の F7 などと衝突するため避けた)。作業の状態・記録には影響しない。(3) 言語は 設定 Language(auto / ja / en)。auto は OS が日本語なら日本語、それ以外は英語。切り替えたらその言語を保存する。書体は言語ごと(英語は Segoe UI 系)。日付・時間の書き方も言語に合わせる(Oct 30 / 1h 20m)。(4) Core の文(ガイド・比較・手順の検証・振り返り・既定のサブタスク名)も辞書から。既定のカテゴリ「割込み作業」は内部名のまま、表示だけ言語に合わせる(Interruptions)。誘いかけの一言は未設定なら言語ごとの既定文。(5) 確認用に AutomationId を付与(言語に依存しない)。ホットキーの名前は設定から作って文言に入れる。開発者向けの説明(Params)は英語に。(6) テスト: 辞書の ja / en のキー・プレースホルダの一致、**日本語の直書きが残っていないことの走査**、英語での Core の文、言語の決め方。テスト166件・シナリオ15本 |
-| 0.14A   | 2026-11-03 | [local] (1) **起動時のロゴ画面**: 同じ作者の Secrypt と同じく、デザインシステム SPIRE(巨大企業の社内端末風)で組んだ画面を約1.9秒出してから本体を表示する(`SplashWindow`。地 void・枠 steel・16px 方眼・corp-red のヘッダー・reactor の進捗線1本。書体 Oxanium / Share Tech Mono(OFL)を同梱し、ライセンス文を配布物の Fonts\ に置く)。クリック・Esc / Enter / Space で飛ばせる。文言は英語だけ。(2) 言語の前提を明記: 利用者はメインの言語だけで使う(日本語の利用者は日本語の入力に英語が混ざりうる、英語の利用者は英語だけ)。(3) 変化点(0.12A・0.13A)のコードレビューで見つけた点の修正: 本体を閉じても、あとでやることの一覧などが開いているとプロセスが残っていた(トレイのアイコンは消えたまま)→ 本体を閉じたら終了する。出口カードでボタンにフォーカスがあるとき Enter がどのボタンでも「閉じて元の作業へ」になっていた。作業中に言語を替えると、隠れている開始準備の部品まで作り直し、再開候補の走査が実行中の記録を「途中で終了」と拾っていた。2つ目の起動の予備の案内が、保存した表示言語ではなく OS の言語になっていた。終了時に F8 と言語のホットキーの登録を解除していなかった(0.13A で解除を追加)。テスト166件 |
+The history below is summarized; the development history before the first public release is not part of this repository. / 以下は要約。公開前の開発の履歴はこのリポジトリには含まれない。
+
+| Version | Date | Summary | 概要 |
+|---------|------|---------|------|
+| 0.0A – 0.3A | 2026-10-03 | Specification written (chapters 01–09): concept, UI, data, functions, UX, tech stack, debugging and interruption-recovery design. | 仕様書(01〜09章)を作成。 |
+| 0.4A | 2026-10-03 | First prototype: OS-independent core (event-sourced session state, metrics), SQLite and JSONL storage, CLI, scenario DSL for headless replay, simple WPF panel. | 第一プロトタイプ。中核・保存・CLI・シナリオ・簡易パネル。 |
+| 0.5A – 0.5C | 2026-10-04 | Interruption handling (bookmark with `F9`, memo with `F10`), recovery after being away / lock / sleep, carry-over to the next day, crash recovery, hidden from screen sharing. Bug fixes from the first real-device checks. | 割り込み対応、離席・ロックからの復帰、持ち越し、異常終了からの復帰、画面共有からの除外。実機確認での修正。 |
+| 0.6A | 2026-10-04 | UI redesign: calm futuristic dark theme in teal and blue, readable fonts, short wording. | 画面デザインの刷新(近未来・低刺激の配色)。 |
+| 0.7A – 0.7B | 2026-10-04 | "Next step" and "first step" notes shown on the resume card; the app log records the running version. | 「次の一手」「最初の一手」。起動時にバージョンをログへ。 |
+| 0.8A | 2026-10-04 | Task dropdown filled from past tasks; sub-step editor. | 過去のタスクから選ぶプルダウン、手順エディタ。 |
+| 0.9A | 2026-10-04 | Portable, self-contained build (no .NET install needed). | 持ち運び版(自己完結)。 |
+| 0.10A | 2026-10-06 | Empty start panel, drafts saved per task, standard-size title buttons, "Finish task" wording, compact view (`F8`: translucent, click-through). | 空から始める、入力の下書き、タイトル帯の見直し、コンパクト表示。 |
+| 0.11A | 2026-10-10 | Compact view anchored at the window's top-left, minimize to the system tray, app icon, second launch brings the running app forward. | コンパクト表示の位置、トレイへの格納、アイコン、2つ目の起動で前面へ。 |
+| 0.12A | 2026-10-29 | Interruption flow: bookmark button, exit card (category, follow-up), 40-second re-entry guide, persistent follow-ups list, themed dialogs. | 割り込み対応ボタン、出口カード、再入場ガイド、あとでやること、アプリと同じ見た目のダイアログ。 |
+| 0.13A | 2026-11-03 | Japanese / English UI with a title-bar switch, tray menu and `Ctrl+Alt+F8`; string tables in `src/FocusCoach.Core/Strings`. | 日本語 / 英語の表示切り替え。 |
+| 0.14A | 2026-11-03 | Boot screen; fixes from a code review (app exit with the follow-ups list open, exit-card button handling, language handling). First public release. | 起動画面、コードレビューでの修正。初の公開版。 |
