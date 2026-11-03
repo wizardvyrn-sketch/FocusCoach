@@ -42,12 +42,61 @@ The executable is **not code-signed**, so Windows SmartScreen may warn you ("Win
 
 ## Quick start
 
-1. Type a task name (or pick a past one with the arrow), then press **Start focusing**.
-2. When you are interrupted, press **`F9`** (or the bookmark button). Handle the interruption.
-3. Press **`F9`** again. On the card, press **`Enter`** to close it (or note a follow-up first).
-4. Your work window comes back; use the short guide to settle in, then carry on.
+Press <kbd>F9</kbd> when you are interrupted, press it again when you are done. That is the whole idea. The screens below are rendered from the app with sample data.
 
-The app starts in **Practice mode** (it does not move or minimize your windows). Untick it only when you want the workspace features.
+<table>
+<tr>
+<td width="240" valign="top"><img src="docs/guide/images/en/01-start.png" width="220" alt="Start panel"></td>
+<td valign="top">
+<b>1. Start a task</b><br>
+Type a task name, or pick a past one with the arrow. The steps and your "first step" note are filled in from last time, and the guide shows a target time learned from your history. Press <b>Start focusing</b>. The app starts in <b>Practice mode</b> (it does not move or minimize your windows); untick it only when you want the workspace features.
+</td>
+</tr>
+<tr>
+<td width="320" valign="top"><img src="docs/guide/images/en/02-running.png" width="300" alt="Mini panel"></td>
+<td valign="top">
+<b>2. Work with the mini panel</b><br>
+It shows the current step and a timer against its target. <b>Done - next step</b> moves on; <b>Memo</b> (<kbd>F10</kbd>) jots down something for later without stopping the timer.
+</td>
+</tr>
+<tr>
+<td width="320" valign="top"><img src="docs/guide/images/en/03-bookmarked.png" width="300" alt="Bookmark placed"></td>
+<td valign="top">
+<b>3. An interruption arrives: press <kbd>F9</kbd></b><br>
+One key press, no typing, no confirmation. The status changes to <i>Handling interruption</i> and the timer stops counting your work. Answer the question. If you want a hint for yourself, press <kbd>F10</kbd> and write where you were and your next step.
+</td>
+</tr>
+<tr>
+<td width="320" valign="top"><img src="docs/guide/images/en/04-exit-card.png" width="300" alt="Close card"></td>
+<td valign="top">
+<b>4. Done? Press <kbd>F9</kbd> again</b><br>
+A small card opens. Just press <kbd>Enter</kbd> to close it with nothing written, or choose a category and, if something is left over, write it as a follow-up with a due date. <b>Tidy up windows</b> minimizes the windows the interruption opened (nothing is closed). <kbd>Esc</kbd> means "still handling it".
+</td>
+</tr>
+<tr>
+<td width="320" valign="top"><img src="docs/guide/images/en/05-reentry.png" width="300" alt="Re-entry guide"></td>
+<td valign="top">
+<b>5. Back to your task</b><br>
+Your original work window comes back to the front, with your own "next step" note and a calm 40-second countdown. What you do in those seconds is up to you. <i>Back to work now</i> skips the wait; interruptions under 60 seconds skip the guide. It never takes the keyboard focus.
+</td>
+</tr>
+<tr>
+<td width="320" valign="top"><img src="docs/guide/images/en/06-followups.png" width="300" alt="Follow-ups list"></td>
+<td valign="top">
+<b>6. Follow-ups</b><br>
+Everything you left over stays in a list that survives across tasks (sample data shown). Open it from the counter on the mini panel or the tray menu; check an item to mark it done.
+</td>
+</tr>
+</table>
+
+The full illustrated guide (English / Japanese, with the compact view, tray and hotkeys) is [docs/guide/index.html](docs/guide/index.html). GitHub shows HTML files as source, so clone or download the repository and open it in a browser.
+
+| Key | Action |
+|---|---|
+| <kbd>F9</kbd> | Interruption bookmark / close it |
+| <kbd>F10</kbd> | Memo (while working) / resume note (during an interruption) |
+| <kbd>F8</kbd> | Compact view on / off |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd> | Switch language (Japanese / English) |
 
 Hotkeys can be changed in `settings.json` (in the data folder). If another app already owns a key, FocusCoach says so and every action is still available by button.
 

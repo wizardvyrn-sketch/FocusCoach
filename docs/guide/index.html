@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FocusCoach - Illustrated guide / 操作ガイド</title>
+<style>
+  :root {
+    --bg: #0e1a20; --panel: #14252d; --panel-alt: #1a3039; --line: #28434e;
+    --text: #dcebef; --muted: #8ea9b3; --accent: #4fd1c5; --accent2: #6cb4ee; --warn: #e3c27a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.7 "Segoe UI", "BIZ UDPGothic", "Yu Gothic UI", "Hiragino Sans", Meiryo, system-ui, sans-serif;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 8px; }
+  h1 { margin: 0 0 4px; font-size: 1.9rem; letter-spacing: .02em; }
+  h1 span { color: var(--accent); }
+  .lead { color: var(--muted); margin: 0; }
+  .switch { float: right; display: flex; gap: 4px; }
+  .switch button {
+    background: var(--panel); color: var(--muted); border: 1px solid var(--line); border-radius: 6px;
+    padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer;
+  }
+  .switch button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+  [data-show] { display: none; }
+  [data-ishow] { display: none; }
+  html[data-lang="en"] [data-ishow="en"], html[data-lang="ja"] [data-ishow="ja"] { display: inline; }
+  html[data-lang="en"] [data-show="en"], html[data-lang="ja"] [data-show="ja"] { display: block; }
+  h2 { font-size: 1.25rem; margin: 40px 0 6px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  h2 .no { color: var(--accent); font-family: Bahnschrift, "Segoe UI", sans-serif; margin-right: 6px; }
+  p { margin: 8px 0; }
+  .step { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  @media (min-width: 760px) { .step.side { grid-template-columns: minmax(0, 1fr) 330px; align-items: start; } }
+  figure { margin: 8px 0; }
+  .step:not(.side) > figure { max-width: 640px; }
+  figure img { display: block; max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); background: #000; }
+  figcaption { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+  kbd {
+    font: .85em Bahnschrift, Consolas, monospace; background: var(--panel-alt); color: var(--accent);
+    border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; white-space: nowrap;
+  }
+  code { font: .88em Consolas, monospace; background: var(--panel); border-radius: 4px; padding: 1px 5px; }
+  .note { background: var(--panel); border-left: 3px solid var(--accent2); padding: 8px 14px; border-radius: 0 6px 6px 0; margin: 12px 0; }
+  .warn { border-left-color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .95rem; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  a { color: var(--accent2); }
+  footer { margin-top: 48px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); padding-top: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="switch" role="group" aria-label="Language / 言語">
+    <button type="button" data-set="en" aria-pressed="true">English</button>
+    <button type="button" data-set="ja" aria-pressed="false">日本語</button>
+  </div>
+  <h1>Focus<span>Coach</span></h1>
+  <p class="lead" data-show="en">Illustrated guide - how to get back to your work after an interruption.</p>
+  <p class="lead" data-show="ja">操作ガイド - 割り込みのあとに、元の作業へ素早く戻る方法。</p>
+</header>
+
+<!-- =============================== English =============================== -->
+<div data-show="en">
+
+<h2><span class="no">1</span>Start a task</h2>
+<div class="step side">
+  <div>
+    <p>Type a task name, or pick a past one with the arrow. The steps, the project and your "first step" note are filled in from last time, and the guide shows a target time learned from your own history.</p>
+    <p>To change the steps, press <b>Edit steps</b> (see step 2). Then press <b>Start focusing</b>. The app starts in <b>Practice mode</b>: it does not move or minimize your windows. Untick it only when you want the workspace features.</p>
+    <div class="note">The small <kbd>EN</kbd> / <kbd>JA</kbd> button in the title bar switches the language (also <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd> and the tray menu).</div>
+  </div>
+  <figure><img src="images/en/01-start.png" alt="The start panel with a task picked"><figcaption>Start panel</figcaption></figure>
+</div>
+
+<h2><span class="no">2</span>Edit the steps (optional)</h2>
+<div class="step side">
+  <div>
+    <p>Press <b>Edit steps</b> next to the Steps list on the start panel. Each row is one step: a <b>name</b> and a <b>target in minutes</b> (the target is optional; the mini panel shows the timer against it with a progress bar). The note under the list tells you where the current steps came from: saved steps, last time's steps, or the previous run.</p>
+    <table>
+      <tr><th>Do this</th><th>Result</th></tr>
+      <tr><td>Type a name, press <kbd>Enter</kbd></td><td>Moves to the target field. <kbd>Enter</kbd> again moves to the next row; on the last row it adds a new one.</td></tr>
+      <tr><td><b>+ Add step</b></td><td>Adds an empty row.</td></tr>
+      <tr><td><b>&uarr;</b> / <b>&darr;</b></td><td>Moves the row up or down (the order is the order you work in).</td></tr>
+      <tr><td><b>&times;</b></td><td>Deletes the row.</td></tr>
+      <tr><td><b>Save as this task's steps</b></td><td>Ticked: the steps are saved for this task and filled in automatically next time. Unticked: used for this run only. (Enter the task name first, otherwise this option is disabled.)</td></tr>
+      <tr><td><b>OK</b> / <b>Cancel</b></td><td>Apply the steps / discard your changes.</td></tr>
+    </table>
+    <p>Rules: step names must be unique and cannot contain commas or colons (full-width ones included); a target must be between 1 and 600 minutes, or left blank. If something is wrong, the editor shows what and on which row, and stays open (see the second picture).</p>
+  </div>
+  <div>
+    <figure><img src="images/en/01b-edit-steps.png" alt="The Edit steps dialog"><figcaption>Edit steps</figcaption></figure>
+    <figure><img src="images/en/01c-edit-steps-error.png" alt="The Edit steps dialog showing a validation message"><figcaption>When a row is wrong</figcaption></figure>
+  </div>
+</div>
+
+<h2><span class="no">3</span>Work with the mini panel</h2>
+<div class="step">
+  <figure><img src="images/en/02-running.png" alt="The mini panel while working"><figcaption>Mini panel: current step, timer against its target, and buttons</figcaption></figure>
+  <table>
+    <tr><th>Button</th><th>What it does</th></tr>
+    <tr><td><b>Done - next step</b></td><td>Finish the current step and go to the next one.</td></tr>
+    <tr><td><b>Handle interruption</b> <kbd>F9</kbd></td><td>Place a <b>bookmark</b> and deal with the interruption (next step below).</td></tr>
+    <tr><td><b>Memo</b> <kbd>F10</kbd></td><td>Jot down something to handle later - without stopping the timer.</td></tr>
+    <tr><td><b>Continue later</b></td><td>Suspend the whole task; it can be resumed another day.</td></tr>
+    <tr><td><b>Finish task</b></td><td>End the task and see the review. (The app stays open.)</td></tr>
+  </table>
+</div>
+
+<h2><span class="no">4</span>An interruption arrives: press <kbd>F9</kbd></h2>
+<div class="step side">
+  <div>
+    <p>One key press, no typing, no confirmation. The status changes to <b>Handling interruption</b> and the timer stops counting your work. Go and answer the question.</p>
+    <p>If you want to leave a hint for yourself, press <kbd>F10</kbd> and write <b>where you were</b> and <b>your next step</b>. You will see it again when you return.</p>
+  </div>
+  <figure><img src="images/en/03-bookmarked.png" alt="The mini panel while handling an interruption"><figcaption>Bookmark placed</figcaption></figure>
+</div>
+
+<h2><span class="no">5</span>Done? Press <kbd>F9</kbd> again - close the interruption</h2>
+<div class="step side">
+  <div>
+    <p>A small card opens. You can just press <kbd>Enter</kbd> (or <kbd>F9</kbd> once more) to close it with nothing written.</p>
+    <ul>
+      <li><b>Category</b> - pick one or type a new name. The default is "Interruptions".</li>
+      <li><b>Subject</b> - optional.</li>
+      <li><b>Done</b> / <b>Something is left to follow up</b> - if something is left, write it in one line and choose a due date. It goes to your follow-ups list, so it stops nagging at the back of your mind.</li>
+      <li><b>Tidy up windows</b> - minimizes the windows the interruption opened (nothing is closed).</li>
+    </ul>
+    <p><kbd>Esc</kbd> means "still handling it".</p>
+  </div>
+  <figure><img src="images/en/04-exit-card.png" alt="The close-interruption card with a follow-up written"><figcaption>Close card</figcaption></figure>
+</div>
+
+<h2><span class="no">6</span>Back to your task: the re-entry guide</h2>
+<div class="step">
+  <p>Your original work window comes back to the front. A calm card shows your task, your own "next step" note and a short countdown (40 seconds by default). <b>What you do in those seconds is up to you</b> - a deep breath, some tea, a look at your notes. Then the card fades away and you are back at work.</p>
+  <figure><img src="images/en/05-reentry.png" alt="The re-entry guide card"><figcaption>Re-entry guide</figcaption></figure>
+  <p><b>Back to work now</b> skips the wait, <b>+30s</b> gives you more time. Short interruptions (under 60 seconds) skip the guide.</p>
+  <div class="note">The guide does not take the keyboard focus: if you already started typing in another window, it will not interrupt you.</div>
+</div>
+
+<h2><span class="no">7</span>Follow-ups</h2>
+<div class="step side">
+  <div>
+    <p>Everything you left over is kept in a list that survives across tasks. The mini panel shows a small counter; click it (or use the tray menu) to open the list. Check an item to mark it done, <b>x</b> deletes it. Done items stay visible for 7 days.</p>
+  </div>
+  <figure><img src="images/en/06-followups.png" alt="The follow-ups list"><figcaption>Follow-ups list (the names here are sample data)</figcaption></figure>
+</div>
+
+<h2><span class="no">8</span>Compact view, tray, hotkeys</h2>
+<div class="step">
+  <p>Press <kbd>F8</kbd> to shrink the app into a small translucent strip that lets clicks through to the app underneath. Hold <kbd>Ctrl</kbd> while pointing at it to use its buttons. Minimizing sends the app to the system tray (on Windows 11 the icon may be under the <kbd>^</kbd> arrow).</p>
+  <figure><img src="images/en/07-compact.png" alt="The compact view strip" style="max-width:420px"><figcaption>Compact view</figcaption></figure>
+  <table>
+    <tr><th>Key</th><th>Action</th></tr>
+    <tr><td><kbd>F9</kbd></td><td>Interruption bookmark / close it</td></tr>
+    <tr><td><kbd>F10</kbd></td><td>Memo (while working) / resume note (during an interruption)</td></tr>
+    <tr><td><kbd>F8</kbd></td><td>Compact view on / off</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd></td><td>Switch language (Japanese / English)</td></tr>
+  </table>
+  <p>Hotkeys can be changed in <code>settings.json</code>. If another app already owns a key, FocusCoach tells you and every action is still available by button.</p>
+</div>
+
+<h2><span class="no">9</span>Good to know</h2>
+<ul>
+  <li>The start screen is a boot animation (about 2 seconds); click or press <kbd>Esc</kbd> to skip it.</li>
+  <li>Everything is stored <b>locally</b>; the app makes no network connections. Do not share the data folder or the logs.</li>
+  <li>The app's windows are not captured by screen sharing or recording.</li>
+  <li>A crashed or unfinished task can be resumed the next time you start the app.</li>
+</ul>
+<div class="note warn">This is a prototype. See "Known limitations" in the README.</div>
+</div>
+
+<!-- =============================== 日本語 =============================== -->
+<div data-show="ja">
+
+<h2><span class="no">1</span>タスクを始める</h2>
+<div class="step side">
+  <div>
+    <p>タスク名を入力するか、▾ で過去のタスクを選びます。手順・プロジェクト・「最初の一手」が前回の内容で入り、ガイドには、過去の実績から出した目標の時間が表示されます。</p>
+    <p>手順を変えるときは「手順を編集」を押します(手順 2 を参照)。そのあと「集中を始める」を押します。最初は<b>練習モード</b>(ウィンドウを動かさない)です。作業用ウィンドウの整理を使うときだけ、チェックを外してください。</p>
+    <div class="note">タイトル帯の小さな <kbd>JA</kbd> / <kbd>EN</kbd> ボタンで表示言語を切り替えられます(<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd>、トレイのメニューでも切り替わります)。</div>
+  </div>
+  <figure><img src="images/ja/01-start.png" alt="タスクを選んだ開始準備の画面"><figcaption>開始準備</figcaption></figure>
+</div>
+
+<h2><span class="no">2</span>手順を編集する(任意)</h2>
+<div class="step side">
+  <div>
+    <p>開始準備の「手順」の横にある<b>「手順を編集」</b>を押します。1 行が 1 つの手順で、<b>名前</b>と<b>目安(分)</b>を入れます(目安は任意です。ミニパネルに、目安に対するタイマーと進み具合のバーが出ます)。一覧の下の文言で、今の手順が「登録した手順」「前回入力した手順」「前回の実行の手順」のどれから来たかが分かります。</p>
+    <table>
+      <tr><th>操作</th><th>動作</th></tr>
+      <tr><td>名前を入れて <kbd>Enter</kbd></td><td>目安の欄へ移ります。もう一度 <kbd>Enter</kbd> で次の行へ。最後の行では、新しい行を足します。</td></tr>
+      <tr><td><b>+ 手順を追加</b></td><td>空の行を足します。</td></tr>
+      <tr><td><b>&uarr;</b> / <b>&darr;</b></td><td>行を上・下へ動かします(上から順に作業する順序です)。</td></tr>
+      <tr><td><b>&times;</b></td><td>行を削除します。</td></tr>
+      <tr><td><b>このタスクの手順として登録する</b></td><td>チェックあり: このタスクの手順として保存し、次回から自動で入ります。チェックなし: この回だけ使います。(先にタスク名を入れてください。未入力だと選べません。)</td></tr>
+      <tr><td><b>決定</b> / <b>キャンセル</b></td><td>手順を反映する / 変更を捨てる。</td></tr>
+    </table>
+    <p>決まり: 手順の名前は重複できず、カンマとコロン(全角を含む)は使えません。目安は 1〜600 分、または空欄です。誤りがあると、どの行がどう違うかを表示して、エディタは閉じません(下の 2 枚目の画像)。</p>
+  </div>
+  <div>
+    <figure><img src="images/ja/01b-edit-steps.png" alt="手順の編集ダイアログ"><figcaption>手順の編集</figcaption></figure>
+    <figure><img src="images/ja/01c-edit-steps-error.png" alt="入力の誤りを表示した手順の編集ダイアログ"><figcaption>行に誤りがあるとき</figcaption></figure>
+  </div>
+</div>
+
+<h2><span class="no">3</span>ミニパネルで作業する</h2>
+<div class="step">
+  <figure><img src="images/ja/02-running.png" alt="作業中のミニパネル"><figcaption>ミニパネル: 今の手順、目安に対するタイマー、ボタン</figcaption></figure>
+  <table>
+    <tr><th>ボタン</th><th>動作</th></tr>
+    <tr><td><b>完了して次へ</b></td><td>今の手順を終えて、次の手順へ進みます。</td></tr>
+    <tr><td><b>割り込み対応</b> <kbd>F9</kbd></td><td><b>しおり</b>を挟んで、割り込みに対応します(次の手順)。</td></tr>
+    <tr><td><b>メモ</b> <kbd>F10</kbd></td><td>あとで対応することを書き留めます。タイマーは止まりません。</td></tr>
+    <tr><td><b>あとで続ける</b></td><td>タスク全体を中断します。別の日に続きから再開できます。</td></tr>
+    <tr><td><b>タスク完了</b></td><td>タスクを終えて振り返りを見ます(アプリは閉じません)。</td></tr>
+  </table>
+</div>
+
+<h2><span class="no">4</span>割り込みが来たら <kbd>F9</kbd></h2>
+<div class="step side">
+  <div>
+    <p>キーを 1 回押すだけです。入力も確認もありません。状態が「割り込み対応中」になり、作業時間の計測が止まります。そのまま対応してください。</p>
+    <p>自分へのヒントを残したいときは <kbd>F10</kbd> で、<b>どこまで進んだか</b>と<b>次の一手</b>を書きます。戻ったときに、また表示されます。</p>
+  </div>
+  <figure><img src="images/ja/03-bookmarked.png" alt="割り込み対応中のミニパネル"><figcaption>しおりを挟んだ状態</figcaption></figure>
+</div>
+
+<h2><span class="no">5</span>終わったらもう一度 <kbd>F9</kbd> - 割り込みを閉じる</h2>
+<div class="step side">
+  <div>
+    <p>小さなカードが開きます。何も書かずに <kbd>Enter</kbd>(または <kbd>F9</kbd> をもう一度)で閉じられます。</p>
+    <ul>
+      <li><b>カテゴリ</b> - 選ぶか、新しい名前を入力します。既定は「割込み作業」です。</li>
+      <li><b>件名</b> - 任意です。</li>
+      <li><b>完了</b> / <b>あとでやることが残る</b> - 残るときは 1 行で書いて、期限を選びます。あとでやることの一覧に入るので、頭の片隅に残り続けません。</li>
+      <li><b>割り込みで開いたウィンドウを片付ける</b> - 割り込みで開いたウィンドウを最小化します(閉じません)。</li>
+    </ul>
+    <p><kbd>Esc</kbd> は「まだ対応を続ける」です。</p>
+  </div>
+  <figure><img src="images/ja/04-exit-card.png" alt="あとでやることを書いた、割り込みを閉じるカード"><figcaption>出口カード</figcaption></figure>
+</div>
+
+<h2><span class="no">6</span>元の作業へ: 再入場ガイド</h2>
+<div class="step">
+  <p>元の作業ウィンドウが前に出ます。落ち着いたカードに、タスク・自分で書いた「次の一手」・短いカウントダウン(既定 40 秒)が出ます。<b>この間に何をするかは自由です</b>(深呼吸、お茶、メモを眺める、など)。時間がたつとカードが消えて、作業に戻ります。</p>
+  <figure><img src="images/ja/05-reentry.png" alt="再入場ガイドのカード"><figcaption>再入場ガイド</figcaption></figure>
+  <p>「今すぐ戻る」で待たずに戻れます。「+30秒」で時間を延ばせます。短い割り込み(60 秒未満)では出ません。</p>
+  <div class="note">ガイドはキーボードのフォーカスを奪いません。ほかのウィンドウで入力を始めていても、邪魔をしません。</div>
+</div>
+
+<h2><span class="no">7</span>あとでやること</h2>
+<div class="step side">
+  <div>
+    <p>残したものは、タスクをまたいで残る一覧に入ります。ミニパネルの小さな件数をクリックする(またはトレイのメニュー)と一覧が開きます。チェックで完了、<b>×</b> で削除です。完了したものは 7 日間、下に畳んで見えます。</p>
+  </div>
+  <figure><img src="images/ja/06-followups.png" alt="あとでやること一覧"><figcaption>あとでやること一覧(名前はサンプルです)</figcaption></figure>
+</div>
+
+<h2><span class="no">8</span>コンパクト表示・トレイ・キー</h2>
+<div class="step">
+  <p><kbd>F8</kbd> で、アプリを小さな半透明の帯に縮めます。クリックは下のアプリに通ります。<kbd>Ctrl</kbd> を押しながら重ねると、ボタンを使えます。最小化するとタスクトレイに入ります(Windows 11 では、アイコンが <kbd>^</kbd> の中にあることがあります)。</p>
+  <figure><img src="images/ja/07-compact.png" alt="コンパクト表示の帯" style="max-width:420px"><figcaption>コンパクト表示</figcaption></figure>
+  <table>
+    <tr><th>キー</th><th>動作</th></tr>
+    <tr><td><kbd>F9</kbd></td><td>割り込みのしおり / 割り込みを閉じる</td></tr>
+    <tr><td><kbd>F10</kbd></td><td>メモ(作業中)/ 再開メモ(割り込み中)</td></tr>
+    <tr><td><kbd>F8</kbd></td><td>コンパクト表示の切り替え</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F8</kbd></td><td>表示言語の切り替え(日本語 / English)</td></tr>
+  </table>
+  <p>キーは <code>settings.json</code> で変えられます。ほかのアプリが同じキーを使っているときは画面でお知らせします。ボタンでも同じ操作ができます。</p>
+</div>
+
+<h2><span class="no">9</span>知っておくこと</h2>
+<ul>
+  <li>起動時に、約 2 秒の起動画面が出ます。クリックか <kbd>Esc</kbd> で飛ばせます。</li>
+  <li>記録は<b>この PC の中だけ</b>に保存され、ネットワークには接続しません。データのフォルダやログは、他人に渡さないでください。</li>
+  <li>アプリの画面は、画面共有や録画に映りません。</li>
+  <li>途中で終了した・中断したタスクは、次の起動で再開できます。</li>
+</ul>
+<div class="note warn">プロトタイプです。README の「Known limitations」(既知の制限)をご覧ください。</div>
+</div>
+
+<footer>
+  <p><span data-ishow="en">The screens in this guide are rendered from the app with sample data (no real data).</span><span data-ishow="ja">このガイドの画面は、サンプルデータでアプリから描画したものです(実際の記録は使っていません)。</span></p>
+  <p><a href="../../README.md">README</a> · <a href="../../README.ja.md">日本語 README</a></p>
+</footer>
+</div>
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    function set(lang) {
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang);
+      var b = document.querySelectorAll('.switch button');
+      for (var i = 0; i < b.length; i++) b[i].setAttribute('aria-pressed', b[i].getAttribute('data-set') === lang ? 'true' : 'false');
+      try { localStorage.setItem('focuscoach-guide-lang', lang); } catch (e) { /* 保存できなくても動く */ }
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('focuscoach-guide-lang'); } catch (e) { }
+    var initial = saved || ((navigator.language || '').toLowerCase().indexOf('ja') === 0 ? 'ja' : 'en');
+    set(initial);
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('[data-set]') : null;
+      if (t) set(t.getAttribute('data-set'));
+    });
+  })();
+</script>
+</body>
+</html>
